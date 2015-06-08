@@ -13,6 +13,7 @@ class Brick {
     
     let spriteNode: SKSpriteNode?
     let brickType: BrickType?
+    let hitCount: Int?
     
     init(spriteNodeName: String, brickType: BrickType){
         self.brickType = brickType
