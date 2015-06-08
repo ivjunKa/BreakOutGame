@@ -22,7 +22,6 @@ class BrickType {
     class var NORMAL: BrickType {
         class Normal: BrickType {
             override func onHit(brick: Brick, level: Level) ->(Bool) {
-                println("Attack with shuriken.")
                 return true;
             }
         }
@@ -32,11 +31,20 @@ class BrickType {
     class var DOUBLE: BrickType {
         class DoublePoints: BrickType {
             override func onHit(brick: Brick, level: Level) -> (Bool) {
-                println("Attack with sword.")
-                return true;
+                return brick.hitCount == maxHits
             }
         }
         return DoublePoints(2, points: 20)
+    }
+    
+    class var EXTRA_BALL: BrickType {
+        class Extra_Ball: BrickType {
+            override func onHit(brick: Brick, level: Level) -> (Bool) {
+                
+                return true
+            }
+        }
+        return Extra_Ball(1, points: 10)
     }
     
     class func CUSTOM(maxHit: Int, points: Int) -> BrickType {
