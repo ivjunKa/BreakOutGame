@@ -186,6 +186,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
 //            println("game over")
+            if let mainView = view {
+                let gameOverScene = GameOverScene.unarchiveFromFile("GameOverScene") as? GameOverScene
+                mainView.presentScene(gameOverScene)
+            }
         }
         if contact.bodyA.categoryBitMask == brickBitmask {
 //            println("brick hit")

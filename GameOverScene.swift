@@ -1,9 +1,17 @@
-//
-//  GameOverScene.swift
-//  BreakoutGame
-//
-//  Created by Home on 08/06/15.
-//  Copyright (c) 2015 nl.han.ica.mad. All rights reserved.
-//
+import SpriteKit
 
-import Foundation
+
+
+class GameOverScene: SKScene {
+    
+let GameOverLabelCategoryName = "gameOverLabel"
+    override init(size: CGSize){
+        super.init(size: size)
+        let gameOverLabel = childNodeWithName(GameOverLabelCategoryName) as SKLabelNode
+        gameOverLabel.text = "Game Over"
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
