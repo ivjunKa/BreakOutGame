@@ -15,10 +15,30 @@ class GameBrain {
         }
     }
     
+    var points: Int {
+        didSet {
+            update()
+        }
+    }
+    
     var level: Level?
     
-    init(){
+    convenience init(){
+        self.init(level: Level(levelName: "1-1"))
+    }
+    
+    init(level l: Level){
         ballCount = 0
+        points = 0
+        self.level = l
+    }
+    
+    func addPoints(p: Int){
+        points += p
+    }
+    
+    func getPoints() -> Int {
+        return points
     }
     
     func update(){

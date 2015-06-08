@@ -9,6 +9,9 @@
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var game: GameBrain?
+    
     var touchingTheScreen = false
     
     var balCatName = "ball"
@@ -27,6 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize){
         super.init(size: size)
+        
+        game = GameBrain()
         
         //adding delegate to detect collision
         self.physicsWorld.contactDelegate = self
@@ -106,17 +111,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for index in 1...nrOfCols {
 //                let brick = SKSpriteNode(imageNamed: brickCatName)
                 let brick : Brick = Brick(spriteNodeName: "normal", brickType: BrickType.NORMAL)
-                brick.spriteNode!.position = CGPointMake(offsetX + nextColPos!, offsetY)
+                brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
 
-                brick.spriteNode!.physicsBody = SKPhysicsBody(rectangleOfSize: brick.spriteNode!.frame.size)
-                brick.spriteNode!.physicsBody?.allowsRotation = false
-                brick.spriteNode!.physicsBody?.friction = 0
+                brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
+                brick.physicsBody?.allowsRotation = false
+                brick.physicsBody?.friction = 0
                 //TODO replace name of the sprite node with brick category
-                brick.spriteNode!.name = brickCatName
-                brick.spriteNode!.physicsBody?.categoryBitMask = brickBitmask
-                brick.spriteNode!.physicsBody?.dynamic = false
+                brick.name = brickCatName
+                brick.physicsBody?.categoryBitMask = brickBitmask
+                brick.physicsBody?.dynamic = false
 
-                self.addChild(brick.spriteNode!)
+                self.addChild(brick)
                 
                 nextColPos! += colWidth + padding
             }
@@ -163,27 +168,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
-        
-//        var bodyA = SKPhysicsBody()
-//        var bodyB = SKPhysicsBody()
-//        if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
-//            bodyA = contact.bodyA
-//            bodyB = contact.bodyB
-//            println("ball hitted something")
-//        }
-//        else { // case ball hits brick
-//            bodyA = contact.bodyB
-//            bodyB = contact.bodyA
-//            println("ball hitted something again")
-//        }
-//        if bodyA.categoryBitMask == balBitmask && bodyB.categoryBitMask == bottomBorderBitmask {
-//            println("game over")
-//        }
-//        if bodyA.categoryBitMask == balBitmask && bodyB.categoryBitMask == brickBitmask {
-//            println("brick hit")
-//            bodyB.node?.removeFromParent()
-//        }
-        
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
 //            println("game over")
             if let mainView = view {
@@ -193,9 +177,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyA.categoryBitMask == brickBitmask {
 //            println("brick hit")
-            println("\(contact.bodyA.node!.name)")
-            contact.bodyA.node?.removeFromParent()
+            let brick = contact.bodyA.node! as? Brick
+            
+            if (brick!.onHit(game!.level!)){
+                brick?.removeFromParent()
+                game!.addPoints(brick!.brickType!.getPoints())
+            }
         }
+        
+        println("Points: \(game!.getPoints())")
     }
     
     
