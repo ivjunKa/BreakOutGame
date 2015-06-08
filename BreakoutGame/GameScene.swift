@@ -118,8 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 nextColPos! += colWidth + padding
 //                println("nextPos:", "\(nextColPos)")
             }
-//            println("rowNr:", "\(index)", "\(offsetY)")
-//            var brickType : Brick = Brick(brickType: "normal")
+            var brickType : Brick = Brick(brickType: "normal")
         }
     }
     

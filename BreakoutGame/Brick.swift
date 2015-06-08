@@ -9,19 +9,21 @@
 import Foundation
 import SpriteKit
 
-class Brick : SKSpriteNode {
-    var brickType: String?
+class Brick {
     
-    convenience init(brickType: String) {
-        self.init(brickType: brickType)
-        println("brickType:", brickType)
-    }
+    let spriteNode: SKSpriteNode?
+    let brickType: String?
+    var hitCount: Int?
     
-    override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
+    init(brickType: String){
+        
+        spriteNode = getSprite(brickType)
+        
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func getSprite(brickType: String) -> SKSpriteNode{
+        switch brickType {
+        case "normal" : return SKSpriteNode(imageNamed: "brickwhite")
+        default: return SKSpriteNode(imageNamed: "brickwhite")
+        }
     }
 }
