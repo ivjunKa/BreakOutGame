@@ -94,8 +94,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
         
         //creating bricks
-        let nrOfRows = 4
-        let nrOfCols = 5
+        let nrOfRows = 1
+        let nrOfCols = 3
         let padding:CGFloat = 20
         var colWidth = SKSpriteNode(imageNamed: brickCatName).size.width
         //TODO find the way to write calculation below in on line
@@ -170,10 +170,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
 //            println("game over")
-            if let mainView = view {
-                let gameOverScene = GameOverScene.unarchiveFromFile("GameOverScene") as? GameOverScene
-                mainView.presentScene(gameOverScene)
-            }
+            let gameOverScene = GameOverScene(size: self.size, playerWin : false)
+            self.view?.presentScene(gameOverScene)
         }
         if contact.bodyA.categoryBitMask == brickBitmask {
 //            println("brick hit")
@@ -182,11 +180,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if (brick!.onHit(game!)){
                 brick?.removeFromParent()
                 game!.addPoints(brick!.brickType!.getPoints())
+                if checkWin(){
+                    let gameOverScene = GameOverScene(size: self.size, playerWin : true)
+                    self.view?.presentScene(gameOverScene)
+                }
             }
         }
         
         println("Points: \(game!.getPoints())")
     }
-    
+    func checkWin() -> Bool{
+        var totalBricks = 0
+        for nodes in self.children {
+            let node = nodes as SKNode
+            if node.name == brickCatName {
+                totalBricks += 1
+            }
+        }
+        return totalBricks == 0
+    }
     
 }

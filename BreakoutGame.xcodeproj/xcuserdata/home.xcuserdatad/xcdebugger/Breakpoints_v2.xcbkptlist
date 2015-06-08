@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BreakoutGame/GameScene.swift"
-            timestampString = "455462385.858138"
+            timestampString = "455476316.443881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210">
+            startingLineNumber = "221"
+            endingLineNumber = "221">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -63,6 +63,66 @@
             endingLineNumber = "111"
             landmarkName = "init(size:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GameOverScene.swift"
+            timestampString = "455476141.071509"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "9"
+            endingLineNumber = "9"
+            landmarkName = "init(size:playerWin:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BreakoutGame.GameOverScene.GameOverLabelCategoryName.getter : Swift.String"
+                  moduleName = "BreakoutGame"
+                  urlString = "file:///Users/home/Desktop/BreakoutGame/GameOverScene.swift"
+                  timestampString = "455475361.625177"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "7"
+                  endingLineNumber = "7"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BreakoutGame.GameOverScene.init (BreakoutGame.GameOverScene.Type)(size : C.CGSize) -&gt; BreakoutGame.GameOverScene"
+                  moduleName = "BreakoutGame"
+                  urlString = "file:///Users/home/Desktop/BreakoutGame/GameOverScene.swift"
+                  timestampString = "455475361.632355"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "7"
+                  endingLineNumber = "7"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BreakoutGame.GameOverScene.init (BreakoutGame.GameOverScene.Type)(coder : ObjectiveC.NSCoder) -&gt; Swift.Optional&lt;BreakoutGame.GameOverScene&gt;"
+                  moduleName = "BreakoutGame"
+                  urlString = "file:///Users/home/Desktop/BreakoutGame/GameOverScene.swift"
+                  timestampString = "455475361.634145"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "7"
+                  endingLineNumber = "7"
+                  offsetFromSymbolStart = "43">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
