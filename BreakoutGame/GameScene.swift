@@ -118,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 nextColPos! += colWidth + padding
 //                println("nextPos:", "\(nextColPos)")
             }
-            var brickType : Brick = Brick(brickType: "normal")
+            var brickType : Brick = Brick(spriteNodeName: "normal",brickType: BrickType.Store.NORMAL)
         }
     }
     
