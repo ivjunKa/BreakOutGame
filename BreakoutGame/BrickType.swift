@@ -9,19 +9,16 @@
 import Foundation
 
 class BrickType {
-    class Store: Equatable {
-        let maxHits: Int
+    let maxHits: Int
         
-        init(_ maxHits:Int) {
-            self.maxHits = maxHits
-        }
-        
-        func onHit(brick: Brick, level: Level) ->(Bool) {return true}
-        
+    private init(_ maxHit:Int) {
+        self.maxHits = maxHit
     }
+        
+    func onHit(brick: Brick, level: Level) ->(Bool) {return true}
     
-    class var NORMAL: Store {
-        class Normal: Store {
+    class var NORMAL: BrickType {
+        class Normal: BrickType {
             override func onHit(brick: Brick, level: Level) ->(Bool) {
                 println("Attack with shuriken.")
                 return true;
@@ -30,8 +27,8 @@ class BrickType {
         return Normal(1)
     }
     
-    class var DOUBLE: Store {
-        class DoublePoints: Store {
+    class var DOUBLE: BrickType {
+        class DoublePoints: BrickType {
             override func onHit(brick: Brick, level: Level) -> (Bool) {
                 println("Attack with sword.")
                 return true;
@@ -40,11 +37,11 @@ class BrickType {
         return DoublePoints(2)
     }
     
-    class func CUSTOM(salary: Int) -> Store {
-        return Store(salary)
+    class func CUSTOM(maxHit: Int) -> BrickType {
+        return BrickType(maxHit)
     }
 }
 
-func == (lhs: BrickType.Store, rhs: BrickType.Store) -> Bool {
+func == (lhs: BrickType, rhs: BrickType) -> Bool {
     return lhs.maxHits == rhs.maxHits
 }
