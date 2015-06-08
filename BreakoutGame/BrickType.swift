@@ -9,10 +9,12 @@
 import Foundation
 
 class BrickType {
-    let maxHits: Int
+    private let points: Int
+    private let maxHits: Int
         
-    private init(_ maxHit:Int) {
+    private init(_ maxHit:Int, points p: Int) {
         self.maxHits = maxHit
+        self.points = p
     }
         
     func onHit(brick: Brick, level: Level) ->(Bool) {return true}
@@ -24,7 +26,7 @@ class BrickType {
                 return true;
             }
         }
-        return Normal(1)
+        return Normal(1, points: 10)
     }
     
     class var DOUBLE: BrickType {
@@ -34,11 +36,11 @@ class BrickType {
                 return true;
             }
         }
-        return DoublePoints(2)
+        return DoublePoints(2, points: 20)
     }
     
-    class func CUSTOM(maxHit: Int) -> BrickType {
-        return BrickType(maxHit)
+    class func CUSTOM(maxHit: Int, points: Int) -> BrickType {
+        return BrickType(maxHit, points: points)
     }
 }
 
