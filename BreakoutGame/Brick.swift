@@ -25,8 +25,8 @@ class Brick : SKSpriteNode{
         fatalError("init(coder:) has not been implemented")
     }
 
-    func onHit(level: Level ) -> Bool{
-        return brickType!.onHit(self,level:level)
+    func onHit(game: GameBrain ) -> Bool{
+        return brickType!.onHit(self,game:game)
     }
     
     class func getSpriteNode(brickType: String) -> String{

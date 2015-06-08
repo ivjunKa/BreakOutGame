@@ -20,11 +20,11 @@ class BrickType {
     func getPoints() -> Int { return points }
     func getMaxHits() -> Int { return maxHits }
         
-    func onHit(brick: Brick, level: Level) ->(Bool) {return true}
+    func onHit(brick: Brick, game: GameBrain) ->(Bool) {return true}
     
     class var NORMAL: BrickType {
         class Normal: BrickType {
-            override func onHit(brick: Brick, level: Level) ->(Bool) {
+            override func onHit(brick: Brick, game: GameBrain) ->(Bool) {
                 return true;
             }
         }
@@ -33,16 +33,27 @@ class BrickType {
     
     class var DOUBLE: BrickType {
         class DoublePoints: BrickType {
-            override func onHit(brick: Brick, level: Level) -> (Bool) {
+            override func onHit(brick: Brick, game: GameBrain) -> (Bool) {
                 return brick.hitCount == maxHits
             }
         }
         return DoublePoints(2, points: 20)
     }
     
+    class var BONUS: BrickType {
+        class BonusPoints: BrickType {
+            override func onHit(brick: Brick, game: GameBrain) -> (Bool) {
+                println("Hits left: \(brick.hitCount)")
+                game.addPoints(game.getPoints())
+                return true
+            }
+        }
+        return BonusPoints(5, points: 0)
+    }
+    
     class var EXTRA_BALL: BrickType {
         class Extra_Ball: BrickType {
-            override func onHit(brick: Brick, level: Level) -> (Bool) {
+            override func onHit(brick: Brick, game: GameBrain) -> (Bool) {
                 
                 return true
             }
