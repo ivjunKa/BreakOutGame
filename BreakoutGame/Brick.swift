@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class Brick {
+class Brick{
     
     let spriteNode: SKSpriteNode?
     let brickType: BrickType?

@@ -111,10 +111,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 brick.spriteNode!.physicsBody = SKPhysicsBody(rectangleOfSize: brick.spriteNode!.frame.size)
                 brick.spriteNode!.physicsBody?.allowsRotation = false
                 brick.spriteNode!.physicsBody?.friction = 0
+                //TODO replace name of the sprite node with brick category
                 brick.spriteNode!.name = brickCatName
                 brick.spriteNode!.physicsBody?.categoryBitMask = brickBitmask
                 brick.spriteNode!.physicsBody?.dynamic = false
+
                 self.addChild(brick.spriteNode!)
+                
                 nextColPos! += colWidth + padding
             }
         }
@@ -186,7 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if contact.bodyA.categoryBitMask == brickBitmask {
 //            println("brick hit")
-            println("\(contact.bodyA)")
+            println("\(contact.bodyA.node!.name)")
             contact.bodyA.node?.removeFromParent()
         }
     }
