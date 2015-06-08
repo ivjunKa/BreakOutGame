@@ -110,7 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nextColPos = 0
             for index in 1...nrOfCols {
 //                let brick = SKSpriteNode(imageNamed: brickCatName)
-                let brick : Brick = Brick(spriteNodeName: "normal", brickType: BrickType.NORMAL)
+                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL)
                 brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
 
                 brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
@@ -179,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            println("brick hit")
             let brick = contact.bodyA.node! as? Brick
             
-            if (brick!.onHit(game!.level!)){
+            if (brick!.onHit(game!)){
                 brick?.removeFromParent()
                 game!.addPoints(brick!.brickType!.getPoints())
             }
