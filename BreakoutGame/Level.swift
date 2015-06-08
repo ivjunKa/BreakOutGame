@@ -9,7 +9,14 @@
 import Foundation
 
 class Level {
-    func test(){
-        
+    
+    var levelName: String?
+    
+    init(levelName name: String){
+        self.levelName = name
+    }
+    
+    func getLevelName() -> String {
+        return levelName!
     }
 }

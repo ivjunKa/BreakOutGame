@@ -16,6 +16,9 @@ class BrickType {
         self.maxHits = maxHit
         self.points = p
     }
+    
+    func getPoints() -> Int { return points }
+    func getMaxHits() -> Int { return maxHits }
         
     func onHit(brick: Brick, level: Level) ->(Bool) {return true}
     
