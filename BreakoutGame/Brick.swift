@@ -16,10 +16,13 @@ class Brick {
     
     init(spriteNodeName: String, brickType: BrickType){
         self.brickType = brickType
-        spriteNode = getSprite(spriteNodeName)
+        self.spriteNode = getSpriteNode(spriteNodeName)
         
     }
-    func getSprite(brickType: String) -> SKSpriteNode{
+    func onHit(level: Level ) -> Bool{
+        return brickType!.onHit(self,level:level)
+    }
+    func getSpriteNode(brickType: String) -> SKSpriteNode{
         switch brickType {
         case "normal" :
             return SKSpriteNode(imageNamed: "brickwhite")

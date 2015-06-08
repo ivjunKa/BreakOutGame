@@ -104,21 +104,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             offsetY += 50
             nextColPos = 0
             for index in 1...nrOfCols {
-                let brick = SKSpriteNode(imageNamed: brickCatName)
-                brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
-//                println("next col position:", "\(nextColPos!)")
-//                println("offsetX:", "\(offsetX)")
-                brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
-                brick.physicsBody?.allowsRotation = false
-                brick.physicsBody?.friction = 0
-                brick.name = brickCatName
-                brick.physicsBody?.categoryBitMask = brickBitmask
-                brick.physicsBody?.dynamic = false
-                self.addChild(brick)
+//                let brick = SKSpriteNode(imageNamed: brickCatName)
+                let brick : Brick = Brick(spriteNodeName: "normal", brickType: BrickType.NORMAL)
+                brick.spriteNode!.position = CGPointMake(offsetX + nextColPos!, offsetY)
+
+                brick.spriteNode!.physicsBody = SKPhysicsBody(rectangleOfSize: brick.spriteNode!.frame.size)
+                brick.spriteNode!.physicsBody?.allowsRotation = false
+                brick.spriteNode!.physicsBody?.friction = 0
+                brick.spriteNode!.name = brickCatName
+                brick.spriteNode!.physicsBody?.categoryBitMask = brickBitmask
+                brick.spriteNode!.physicsBody?.dynamic = false
+                self.addChild(brick.spriteNode!)
                 nextColPos! += colWidth + padding
-//                println("nextPos:", "\(nextColPos)")
             }
-            var brickType : Brick = Brick(spriteNodeName: "normal",brickType: BrickType.Store.NORMAL)
         }
     }
     
@@ -162,6 +160,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        
 //        var bodyA = SKPhysicsBody()
 //        var bodyB = SKPhysicsBody()
 //        if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
@@ -183,10 +182,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        }
         
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
-            println("game over")
+//            println("game over")
         }
         if contact.bodyA.categoryBitMask == brickBitmask {
 //            println("brick hit")
+            println("\(contact.bodyA)")
             contact.bodyA.node?.removeFromParent()
         }
     }
