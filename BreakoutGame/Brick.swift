@@ -12,18 +12,19 @@ import SpriteKit
 class Brick {
     
     let spriteNode: SKSpriteNode?
-    let brickType: String?
-    var hitCount: Int?
+    let brickType: BrickType?
     
-    init(brickType: String){
-        
-        spriteNode = getSprite(brickType)
+    init(spriteNodeName: String, brickType: BrickType){
+        self.brickType = brickType
+        spriteNode = getSprite(spriteNodeName)
         
     }
     func getSprite(brickType: String) -> SKSpriteNode{
         switch brickType {
-        case "normal" : return SKSpriteNode(imageNamed: "brickwhite")
-        default: return SKSpriteNode(imageNamed: "brickwhite")
+        case "normal" :
+            return SKSpriteNode(imageNamed: "brickwhite")
+        default:
+            return SKSpriteNode(imageNamed: "brickwhite")
         }
     }
 }
