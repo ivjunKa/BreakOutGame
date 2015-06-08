@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28DD6E391B25B31C0091CCF0 /* PaddleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6E381B25B31C0091CCF0 /* PaddleType.swift */; };
+		28DD6E3B1B25B4940091CCF0 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6E3A1B25B4940091CCF0 /* Level.swift */; };
 		F40DF0611B2318F600D393AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0601B2318F600D393AB /* AppDelegate.swift */; };
 		F40DF0631B2318F600D393AB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F40DF0621B2318F600D393AB /* GameScene.sks */; };
 		F40DF0651B2318F600D393AB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0641B2318F600D393AB /* GameScene.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28DD6E381B25B31C0091CCF0 /* PaddleType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddleType.swift; sourceTree = "<group>"; };
+		28DD6E3A1B25B4940091CCF0 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		F40DF05B1B2318F600D393AB /* BreakoutGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakoutGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F40DF05F1B2318F600D393AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F40DF0601B2318F600D393AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 		F40DF05D1B2318F600D393AB /* BreakoutGame */ = {
 			isa = PBXGroup;
 			children = (
+				28DD6E381B25B31C0091CCF0 /* PaddleType.swift */,
 				F40DF0601B2318F600D393AB /* AppDelegate.swift */,
 				F40DF0621B2318F600D393AB /* GameScene.sks */,
 				F40DF0641B2318F600D393AB /* GameScene.swift */,
@@ -92,6 +97,7 @@
 				F40DF06B1B2318F600D393AB /* Images.xcassets */,
 				F40DF06D1B2318F600D393AB /* LaunchScreen.xib */,
 				F40DF05E1B2318F600D393AB /* Supporting Files */,
+				28DD6E3A1B25B4940091CCF0 /* Level.swift */,
 			);
 			path = BreakoutGame;
 			sourceTree = "<group>";
@@ -222,10 +228,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28DD6E3B1B25B4940091CCF0 /* Level.swift in Sources */,
 				F40DF0651B2318F600D393AB /* GameScene.swift in Sources */,
 				F40DF0851B259C0D00D393AB /* Brick.swift in Sources */,
 				F40DF0671B2318F600D393AB /* GameViewController.swift in Sources */,
 				F40DF0611B2318F600D393AB /* AppDelegate.swift in Sources */,
+				28DD6E391B25B31C0091CCF0 /* PaddleType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
