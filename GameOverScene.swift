@@ -21,7 +21,7 @@ class GameOverScene: SKScene {
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        let gameScene = GameScene(size: self.size)
+        let gameScene = GameStartScene(size: self.size)
         self.view?.presentScene(gameScene)
     }
     required init?(coder aDecoder: NSCoder) {

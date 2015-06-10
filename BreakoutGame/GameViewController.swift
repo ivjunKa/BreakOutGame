@@ -39,7 +39,8 @@ class GameViewController: UIViewController {
             
             spriteKitView.showsFPS = true
             spriteKitView.showsNodeCount = true
-            let gameScene = GameScene(size: spriteKitView.bounds.size)
+//            let gameScene = GameScene(size: spriteKitView.bounds.size)
+            let gameScene = GameStartScene(size: spriteKitView.bounds.size)
             gameScene.scaleMode = SKSceneScaleMode.AspectFill
             spriteKitView.presentScene(gameScene)
         }
