@@ -50,8 +50,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //creating an ball from image
         addBall()
-        addBall()
-        addBall()
         
         //create an paddle from image (CGRectGetMidX can be handy to get the midX position of the scene)
         let paddle = SKSpriteNode(imageNamed: paddleCatName)
@@ -156,6 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 game!.ballLost(ball)
                 ball.removeFromParent()
             } else if let bonus = contact.bodyB.node as? Bonus {
+                println("BONUS HITS BOTTOM")
                 
             }
         }
