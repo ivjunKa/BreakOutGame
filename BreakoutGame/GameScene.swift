@@ -49,21 +49,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody?.friction = 0
         
         //creating an ball from image
-        let ball = SKSpriteNode(imageNamed: balCatName)
-        ball.name = balCatName
-        ball.position = CGPointMake(self.frame.midX, self.frame.midY - 120)
-        self.addChild(ball)
-        
-        //creating the physics body for the ball so it can "communicate" with the world
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.frame.size.width/2)
-        ball.physicsBody?.friction = 0
-        //restitution == bounciness
-        ball.physicsBody?.restitution = 1
-        ball.physicsBody?.linearDamping = 0
-        ball.physicsBody?.allowsRotation = false
-        
-        //apply initial impulse to the ball so it`s starts moving around
-        ball.physicsBody?.applyImpulse(CGVectorMake(2, -2))
+        addBall()
+        addBall()
+        addBall()
         
         //create an paddle from image (CGRectGetMidX can be handy to get the midX position of the scene)
         let paddle = SKSpriteNode(imageNamed: paddleCatName)
@@ -84,12 +72,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bottom)
         
         //adding bitmask to all nodes
-        ball.physicsBody?.categoryBitMask = balBitmask
         paddle.physicsBody?.categoryBitMask = paddleBitmask
         bottom.physicsBody?.categoryBitMask = bottomBorderBitmask
-        
-        //add contact bitmask to determine when the ball hit border or brick
-        ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
         
         //creating bricks
         let nrOfRows = 3
@@ -170,19 +154,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let ball = contact.bodyB.node as? Ball {
                 game!.ballLost(ball)
                 ball.removeFromParent()
-            } //else if let bonus = contact.bodyB.node as? Bonus {
-            
+            } else if let bonus = contact.bodyB.node as? Bonus {
+                
+            }
         }
-        if contact.bodyA.categoryBitMask == brickBitmask {
+        if contact.bodyA.categoryBitMask == brickBitmask && contact.bodyA.node != nil{
             //WE HIT A BRICK
             let brick = contact.bodyA.node! as Brick
             if game!.onBrickHit(brick) {
                 brick.removeFromParent()
-                
-                if checkWin(){
-                    let gameOverScene = GameOverScene(size: self.size, playerWin : true)
-                    self.view?.presentScene(gameOverScene)
-                }
             }
         }
         
@@ -194,9 +174,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func checkGameForUpdate() -> Bool {
         if checkWin(){
-            gameWin()
+            gameOver(true)
         } else if checkLoss() {
-            gameOver()
+            gameOver(false)
         } else {
             return true
         }
@@ -210,8 +190,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBall(){
-        var ball = Ball()
+        var ball = Ball(imageNamed: balCatName)
+        ball.name = balCatName
+        ball.position = CGPointMake(self.frame.midX, self.frame.midY - 120)
+        self.addChild(ball)
+        //creating the physics body for the ball so it can "communicate" with the world
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.frame.size.width/2)
+        ball.physicsBody?.friction = 0
+        //restitution == bounciness
+        ball.physicsBody?.restitution = 1
+        ball.physicsBody?.linearDamping = 0
+        ball.physicsBody?.allowsRotation = false
         
+        ball.physicsBody?.categoryBitMask = balBitmask
+        
+        //add contact bitmask to determine when the ball hit border or brick
+        ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
+        
+        //apply initial impulse to the ball so it`s starts moving around
+        ball.physicsBody?.applyImpulse(CGVectorMake(2, -2))
         game!.onAddBallToPaddle(ball)
     }
     
@@ -230,12 +227,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return game!.finished
     }
     
-    func gameWin() {
-        
-    }
-    
-    func gameOver() {
-        let gameOverScene = GameOverScene(size: self.size, playerWin : false)
+    func gameOver(win: Bool) {
+        let gameOverScene = GameOverScene(size: self.size, playerWin : win)
         self.view?.presentScene(gameOverScene)
     }
+    
 }

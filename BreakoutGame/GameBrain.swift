@@ -9,21 +9,11 @@
 import Foundation
 
 class GameBrain {
-    var livesCount: Int {
-        didSet {
-            update()
-        }
-    }
-    
-    var ballCount: Int = 1
+    var livesCount: Int = 1
+    var ballCount: Int = 0
     var ballsToAdd: Int = 0
     var finished: Bool = false
-    
-    var points: Int {
-        didSet {
-            update()
-        }
-    }
+    var points: Int = 0
     
     var level: Level?
     
@@ -32,8 +22,6 @@ class GameBrain {
     }
     
     init(level l: Level){
-        livesCount = 1
-        points = 0
         self.level = l
     }
     
@@ -72,12 +60,13 @@ class GameBrain {
     
     func onAddBallToPaddle(ball: Ball) {
         ballCount++
-        ballsToAdd--
+        if ballsToAdd > 0 {
+            ballsToAdd--
+        }
     }
     
     func onBrickHit(brick: Brick) -> Bool {
         let broken = brick.onHit(self)
-        
         if broken {
             addPoints(brick.getPoints())
         }
