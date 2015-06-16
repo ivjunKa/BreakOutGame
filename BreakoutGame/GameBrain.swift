@@ -9,11 +9,15 @@
 import Foundation
 
 class GameBrain {
-    var ballCount: Int {
+    var livesCount: Int {
         didSet {
             update()
         }
     }
+    
+    var ballCount: Int = 1
+    var ballsToAdd: Int = 0
+    var finished: Bool = false
     
     var points: Int {
         didSet {
@@ -28,7 +32,7 @@ class GameBrain {
     }
     
     init(level l: Level){
-        ballCount = 0
+        livesCount = 1
         points = 0
         self.level = l
     }
@@ -42,12 +46,47 @@ class GameBrain {
     }
     
     func update(){
-        if (ballCount == 0){
-            finishGame("No more balls left!")
+        if ballCount == 0{
+            if livesCount > 0 {
+                livesCount--
+                shouldAddBallToPaddle()
+            } else {
+                //game over
+                finishGame("No lives left")
+            }
         }
     }
     
+    func ballLost(ball: Ball){
+        ballCount--
+        update()
+    }
+    
+    func getBallsToAdd() -> Int {
+        return ballsToAdd
+    }
+    
+    func shouldAddBallToPaddle (){
+        ballsToAdd++
+    }
+    
+    func onAddBallToPaddle(ball: Ball) {
+        ballCount++
+        ballsToAdd--
+    }
+    
+    func onBrickHit(brick: Brick) -> Bool {
+        let broken = brick.onHit(self)
+        
+        if broken {
+            addPoints(brick.getPoints())
+        }
+        
+        return broken
+    }
+    
     func finishGame(message: String){
-        //game finished
+        finished = true
+        println(message)
     }
 }
