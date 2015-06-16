@@ -21,6 +21,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var bonusCatName = "bonus"
 
+    var LABEL_POINTS = "POINTS"
+    var LABEL_LIVES = "LIVES"
+    var LABEL_POINTS_TEXT = "Points: "
+    var LABEL_LIVES_TEXT = "Lives: "
+    
+    
     let balBitmask:UInt32 = 1
     let bottomBorderBitmask:UInt32 = 2
     let brickBitmask:UInt32 = 3
@@ -60,7 +66,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //create an paddle from image (CGRectGetMidX can be handy to get the midX position of the scene)
         createPaddle()
         
-        loadBricks()
+        //load labels
+        loadLabels()
+        
+        //laod bricks
+        loadBricks(game!.level)
         
         //creating an ball from image
         addBall()
@@ -105,21 +115,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
+            //something hits the bottom
             if let ball = contact.bodyB.node as? Ball {
+                //we lost a ball
                 game!.ballLost(ball)
                 ball.removeFromParent()
             } else if let bonus = contact.bodyB.node as? Bonus {
-
+                //we lost a bonus
                 contact.bodyB.node?.removeFromParent()
-                println("BONUS HITS BOTTOM")
-                
             }
-        }
-
-        if contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == brickBitmask {
-            //WE HIT A BRICK
+        } else if contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == brickBitmask {
+            //WE HIT A BRICK HURAY
             let brick = contact.bodyA.node! as Brick
             if game!.onBrickHit(brick) {
+                //returns true when the brick breaks
                 brick.removeFromParent()
 
                 if let bonus = brick.bonus {
@@ -156,9 +165,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if checkLoss() {
             gameOver(false)
         } else {
+            updateLabels()
             return true
         }
         return false
+    }
+    
+    func updateLabels(){
+        getLabel(LABEL_POINTS)?.text = LABEL_POINTS_TEXT + "\(game!.getPoints())"
+        getLabel(LABEL_LIVES)?.text = LABEL_LIVES_TEXT + "\(game!.livesCount)"
+    }
+    
+    func getLabel(tag: String) -> SKLabelNode? {
+        for nodes in self.children {
+            if let node = nodes as? SKLabelNode {
+                if node.name == tag {
+                    return node
+                }
+            }
+        }
+        return nil
     }
     
     func checkGameForNewSceneNodes(){
@@ -170,8 +196,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addBall(){
         var ball = Ball(imageNamed: balCatName)
         ball.name = balCatName
-        ball.position = CGPointMake(self.frame.midX, self.frame.midY - 120)
-        self.addChild(ball)
+        
         //creating the physics body for the ball so it can "communicate" with the world
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.frame.size.width/2)
         ball.physicsBody?.friction = 0
@@ -185,6 +210,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //add contact bitmask to determine when the ball hit border or brick
         ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
         
+        self.addChild(ball)
         paddle!.addBall(ball)
         game!.onAddBallToPaddle(ball)
     }
@@ -205,7 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         paddle!.physicsBody?.categoryBitMask = paddleBitmask
     }
     
-    func loadBricks(){
+    func loadBricks(level: Level?){
         //creating bricks
         let nrOfRows = 3
         let nrOfCols = 3
@@ -240,7 +266,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 nextColPos! += colWidth + padding
             }
         }
-
+    }
+    
+    func loadLabels(){
+        let labelDistance: CGFloat = 20
+        var label = addLabel(LABEL_POINTS,point: CGPointMake(0, self.frame.maxY-labelDistance))
+        addLabel(LABEL_LIVES, point: CGPointMake(0, label.position.y-labelDistance))
+        updateLabels()
+    }
+    
+    func addLabel(tag: String, point: CGPoint) -> SKLabelNode{
+        let message = SKLabelNode(fontNamed: "Arial")
+        message.name = tag
+        message.fontSize = 15
+        message.position = point
+        message.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        self.addChild(message)
+        return message
     }
     
     func checkWin() -> Bool{

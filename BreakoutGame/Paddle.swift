@@ -34,7 +34,7 @@ class Paddle : SKSpriteNode {
     }
     
     func paddleMove() {
-        let position = CGPoint(x: self.position.x, y: self.position.y+5)
+        let position = CGPoint(x: self.position.x, y: self.position.y+self.frame.height)
         if !linkedBalls.isEmpty {
             for ball in linkedBalls {
                 ball.position = position
