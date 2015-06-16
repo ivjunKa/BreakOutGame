@@ -90,19 +90,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let touchPos = touch.locationInNode(self)
             let prevTouchLoc = touch.previousLocationInNode(self)
             
-            let paddle = self.childNodeWithName(paddleCatName) as SKSpriteNode
+            var newPosX = paddle!.position.x + (touchPos.x - prevTouchLoc.x)
+            newPosX = max(newPosX, paddle!.size.width/2)
+            newPosX = min(newPosX, self.size.width - paddle!.size.width/2)
             
-            var newPosX = paddle.position.x + (touchPos.x - prevTouchLoc.x)
-            newPosX = max(newPosX, paddle.size.width/2)
-            newPosX = min(newPosX, self.size.width - paddle.size.width/2)
-            
-            paddle.position = CGPointMake(newPosX, paddle.position.y)
-            
+            paddle!.position = CGPointMake(newPosX, paddle!.position.y)
+            paddle!.paddleMove()
         }
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        
+        paddle!.shoot()
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -187,8 +185,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //add contact bitmask to determine when the ball hit border or brick
         ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
         
-        //apply initial impulse to the ball so it`s starts moving around
-        
+        paddle!.addBall(ball)
         game!.onAddBallToPaddle(ball)
     }
     

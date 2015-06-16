@@ -12,14 +12,16 @@ import SpriteKit
 
 class Paddle : SKSpriteNode {
 
-    private var linkedBalls: [Ball]
+    private var linkedBalls: [Ball] = []
     
-    convenience init(spriteName: String){
-        super.init(fileNamed: spriteName)
+    init(spriteName: String){
+        let texture = SKTexture(imageNamed: spriteName)
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
     }
     
     func addBall(ball: Ball){
         linkedBalls.append(ball)
+        paddleMove()
     }
     
     func shoot(){
@@ -27,6 +29,7 @@ class Paddle : SKSpriteNode {
             for ball in linkedBalls {
                 ball.physicsBody?.applyImpulse(CGVectorMake(2, -2))
             }
+            linkedBalls.removeAll(keepCapacity: false)
         }
     }
     
