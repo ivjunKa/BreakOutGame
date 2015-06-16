@@ -23,6 +23,7 @@
 		F40DF0891B25C76100D393AB /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0881B25C76100D393AB /* GameOverScene.swift */; };
 		F4CE17791B28204B0065C0A8 /* GameStartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CE17781B28204B0065C0A8 /* GameStartScene.swift */; };
 		F4D101211B30203C0077C0D7 /* Bonus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D101201B30203C0077C0D7 /* Bonus.swift */; };
+		F4D101231B302E5F0077C0D7 /* BonusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D101221B302E5F0077C0D7 /* BonusType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		F40DF0881B25C76100D393AB /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOverScene.swift; path = ../GameOverScene.swift; sourceTree = "<group>"; };
 		F4CE17781B28204B0065C0A8 /* GameStartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStartScene.swift; sourceTree = "<group>"; };
 		F4D101201B30203C0077C0D7 /* Bonus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bonus.swift; sourceTree = "<group>"; };
+		F4D101221B302E5F0077C0D7 /* BonusType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonusType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				F4D101201B30203C0077C0D7 /* Bonus.swift */,
+				F4D101221B302E5F0077C0D7 /* BonusType.swift */,
 				28DD6EA41B3021D30091CCF0 /* Ball.swift */,
 				F4CE17781B28204B0065C0A8 /* GameStartScene.swift */,
 				F40DF0881B25C76100D393AB /* GameOverScene.swift */,
@@ -250,6 +253,7 @@
 				F4CE17791B28204B0065C0A8 /* GameStartScene.swift in Sources */,
 				F40DF0891B25C76100D393AB /* GameOverScene.swift in Sources */,
 				28DD6E3D1B25BE950091CCF0 /* GameBrain.swift in Sources */,
+				F4D101231B302E5F0077C0D7 /* BonusType.swift in Sources */,
 				F40DF0851B259C0D00D393AB /* Brick.swift in Sources */,
 				F40DF0671B2318F600D393AB /* GameViewController.swift in Sources */,
 				F40DF0611B2318F600D393AB /* AppDelegate.swift in Sources */,

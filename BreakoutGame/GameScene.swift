@@ -101,6 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //TODO replace name of the sprite node with brick category
                 brick.name = brickCatName
                 brick.physicsBody?.categoryBitMask = brickBitmask
+//                brick.physicsBody?.contactTestBitMask = balBitmask
                 brick.physicsBody?.dynamic = false
 
                 self.addChild(brick)
@@ -158,12 +159,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
         }
-        if contact.bodyA.categoryBitMask == brickBitmask && contact.bodyA.node != nil{
+
+        if contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == brickBitmask {
             //WE HIT A BRICK
             let brick = contact.bodyA.node! as Brick
             if game!.onBrickHit(brick) {
                 brick.removeFromParent()
+
+                if let bonus = brick.bonus {
+                    bonus.position = CGPointMake(brick.position.x, brick.position.y)
+                    bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
+                    bonus.physicsBody?.allowsRotation = false
+                    bonus.name = bonusCatName
+                    bonus.physicsBody?.categoryBitMask = bonusBitmask
+                    bonus.physicsBody?.contactTestBitMask = bottomBorderBitmask | paddleBitmask
+                    self.addChild(bonus)
+                    bonus.physicsBody?.applyImpulse(CGVectorMake(2, -2))
+                }
+                if checkWin(){
+                    let gameOverScene = GameOverScene(size: self.size, playerWin : true)
+                    self.view?.presentScene(gameOverScene)
+                }
             }
+        }
+        if contact.bodyB.categoryBitMask == bonusBitmask {
+            println("bonus is now colliding")
         }
         
         if checkGameForUpdate() {
