@@ -154,7 +154,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 game!.ballLost(ball)
                 ball.removeFromParent()
             } else if let bonus = contact.bodyB.node as? Bonus {
+
                 contact.bodyB.node?.removeFromParent()
+                println("BONUS HITS BOTTOM")
+                
             }
         }
 
