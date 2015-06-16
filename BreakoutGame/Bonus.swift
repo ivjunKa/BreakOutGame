@@ -11,21 +11,29 @@ import SpriteKit
 
 class Bonus : SKSpriteNode{
     var bType: BonusType?
-    
+    var bonusType : String?
     init(bonusType: String){
-        let texture = SKTexture(imageNamed: Bonus.getSpriteNode(bonusType, bType: bType))
+        self.bonusType = bonusType
+        let texture = SKTexture(imageNamed: Bonus.getSpriteNode(bonusType))
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        getBonusType(bonusType)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    class func getSpriteNode(bonusType: String, var bType: BonusType?) ->String{
+    class func getSpriteNode(bonusType: String) ->String{
         switch bonusType {
         case "bigger_paddle":
-            bType = BonusType.BIGGER_PADDLE()
             return "bonus_extra_ball"
         default: return "bonus_extra_ball"
+        }
+    }
+    func getBonusType(bonusType: String){
+        switch bonusType{
+            case "bigger_paddle":
+            self.bType = BonusType.BIGGER_PADDLE()
+            default: self.bType = BonusType.BIGGER_PADDLE()
         }
     }
 }

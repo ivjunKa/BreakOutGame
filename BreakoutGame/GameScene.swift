@@ -152,7 +152,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == paddleBitmask {
             println("apply bonus!!!")
             println(contact.bodyB.node)
-            if var bonus = contact.bodyB.node as? Bonus {
+            if let bonus = contact.bodyB.node as? Bonus {
                 bonus.bType?.applyBonus(self)
             }
             contact.bodyB.node?.removeFromParent()
@@ -231,6 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(paddle!)
         
         //adding some physics to the paddle so it can "communicate" with ball
+        
         paddle!.physicsBody = SKPhysicsBody(rectangleOfSize: paddle!.frame.size)
         paddle!.physicsBody?.friction = 0.4
         paddle!.physicsBody?.restitution = 0.1
@@ -258,7 +259,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nextColPos = 0
             for index in 1...nrOfCols {
 //                let brick = SKSpriteNode(imageNamed: brickCatName)
-                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: index%2 == 0 ? true : false)
+                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: true)
                 brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
 
                 brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)

@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 class BonusType {
     init(){
-        
+       println("bonus type created")
     }
     func applyBonus(game: GameScene){
         println("some kind of bonus needs to be applied here")        
@@ -20,8 +20,7 @@ class BonusType {
                 for nodes in game.children {
                     var node = nodes as SKNode
                     if node.name == "paddle" {
-                        println("paddle founded!")
-//                        println(node.frame.size)
+                        node.xScale = 2
                     }
                 }
             }
