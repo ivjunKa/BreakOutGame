@@ -101,6 +101,7 @@
 		F40DF05D1B2318F600D393AB /* BreakoutGame */ = {
 			isa = PBXGroup;
 			children = (
+				28F8E60D1B3043F200451096 /* Paddle.swift */,
 				F4D101201B30203C0077C0D7 /* Bonus.swift */,
 				F4D101221B302E5F0077C0D7 /* BonusType.swift */,
 				28DD6EA41B3021D30091CCF0 /* Ball.swift */,
@@ -118,7 +119,6 @@
 				F40DF06B1B2318F600D393AB /* Images.xcassets */,
 				F40DF06D1B2318F600D393AB /* LaunchScreen.xib */,
 				F40DF05E1B2318F600D393AB /* Supporting Files */,
-				28F8E60D1B3043F200451096 /* Paddle.swift */,
 			);
 			path = BreakoutGame;
 			sourceTree = "<group>";

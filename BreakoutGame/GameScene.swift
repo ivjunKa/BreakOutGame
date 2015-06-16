@@ -11,6 +11,7 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var game: GameBrain?
+    var paddle: Paddle?
     
     var touchingTheScreen = false
     
@@ -48,65 +49,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //disable friction so the ball doesn`t slow down while touching the boundarys of the game
         self.physicsBody?.friction = 0
         
-        //creating an ball from image
-        addBall()
-        
-        //create an paddle from image (CGRectGetMidX can be handy to get the midX position of the scene)
-        let paddle = SKSpriteNode(imageNamed: paddleCatName)
-        paddle.name = paddleCatName
-        paddle.position = CGPointMake(self.frame.midX, paddle.size.height * 2)
-        self.addChild(paddle)
-        
-        //adding some physics to the paddle so it can "communicate" with ball
-        paddle.physicsBody = SKPhysicsBody(rectangleOfSize: paddle.frame.size)
-        paddle.physicsBody?.friction = 0.4
-        paddle.physicsBody?.restitution = 0.1
-        paddle.physicsBody?.dynamic = false
-        
         //create bottom collision
         let bottomRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, 1)
         let bottom = SKNode()
         bottom.physicsBody = SKPhysicsBody(edgeLoopFromRect: bottomRect)
         self.addChild(bottom)
         
-        //adding bitmask to all nodes
-        paddle.physicsBody?.categoryBitMask = paddleBitmask
         bottom.physicsBody?.categoryBitMask = bottomBorderBitmask
         
-        //creating bricks
-        let nrOfRows = 3
-        let nrOfCols = 3
-        let padding:CGFloat = 20
-        var colWidth = SKSpriteNode(imageNamed: brickCatName).size.width
-        //TODO find the way to write calculation below in on line
-        var totalColWidth = (CGFloat(nrOfCols) * colWidth)
-        var totalPaddingWidth = (CGFloat(nrOfCols - 1)) * padding
-        var offsetX = (self.frame.size.width - (totalColWidth + CGFloat(totalPaddingWidth)))/2
+        //create an paddle from image (CGRectGetMidX can be handy to get the midX position of the scene)
+        createPaddle()
         
-        var offsetY: CGFloat = 100
-        var nextColPos: CGFloat?
-        for index in 1...nrOfRows {
-            offsetY += 50
-            nextColPos = 0
-            for index in 1...nrOfCols {
-//                let brick = SKSpriteNode(imageNamed: brickCatName)
-                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: index%2 == 0 ? true : false)
-                brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
-
-                brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
-                brick.physicsBody?.allowsRotation = false
-                brick.physicsBody?.friction = 0
-                //TODO replace name of the sprite node with brick category
-                brick.name = brickCatName
-                brick.physicsBody?.categoryBitMask = brickBitmask
-//                brick.physicsBody?.contactTestBitMask = balBitmask
-                brick.physicsBody?.dynamic = false
-
-                self.addChild(brick)
-                
-                nextColPos! += colWidth + padding
-            }
-        }
+        loadBricks()
+        
+        //creating an ball from image
+        addBall()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -227,8 +184,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
         
         //apply initial impulse to the ball so it`s starts moving around
-        ball.physicsBody?.applyImpulse(CGVectorMake(2, -2))
+        
         game!.onAddBallToPaddle(ball)
+    }
+    
+    func createPaddle(){
+        paddle = Paddle(spriteName: paddleCatName)
+        paddle!.name = paddleCatName
+        paddle!.position = CGPointMake(self.frame.midX, paddle!.size.height * 2)
+        self.addChild(paddle!)
+        
+        //adding some physics to the paddle so it can "communicate" with ball
+        paddle!.physicsBody = SKPhysicsBody(rectangleOfSize: paddle!.frame.size)
+        paddle!.physicsBody?.friction = 0.4
+        paddle!.physicsBody?.restitution = 0.1
+        paddle!.physicsBody?.dynamic = false
+        
+        //adding bitmask to all nodes
+        paddle!.physicsBody?.categoryBitMask = paddleBitmask
+    }
+    
+    func loadBricks(){
+        //creating bricks
+        let nrOfRows = 3
+        let nrOfCols = 3
+        let padding:CGFloat = 20
+        var colWidth = SKSpriteNode(imageNamed: brickCatName).size.width
+        //TODO find the way to write calculation below in on line
+        var totalColWidth = (CGFloat(nrOfCols) * colWidth)
+        var totalPaddingWidth = (CGFloat(nrOfCols - 1)) * padding
+        var offsetX = (self.frame.size.width - (totalColWidth + CGFloat(totalPaddingWidth)))/2
+        
+        var offsetY: CGFloat = 100
+        var nextColPos: CGFloat?
+        for index in 1...nrOfRows {
+            offsetY += 50
+            nextColPos = 0
+            for index in 1...nrOfCols {
+                //                let brick = SKSpriteNode(imageNamed: brickCatName)
+                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: index%2 == 0 ? true : false)
+                brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
+                
+                brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
+                brick.physicsBody?.allowsRotation = false
+                brick.physicsBody?.friction = 0
+                //TODO replace name of the sprite node with brick category
+                brick.name = brickCatName
+                brick.physicsBody?.categoryBitMask = brickBitmask
+                //                brick.physicsBody?.contactTestBitMask = balBitmask
+                brick.physicsBody?.dynamic = false
+                
+                self.addChild(brick)
+                
+                nextColPos! += colWidth + padding
+            }
+        }
     }
     
     func checkWin() -> Bool{
