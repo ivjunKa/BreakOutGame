@@ -13,9 +13,13 @@ class Brick : SKSpriteNode{
     
     let brickType: BrickType?
     let hitCount: Int?
+    let bonus: Bonus?
     
-    init(spriteNodeName: String, brickType: BrickType){
+    init(spriteNodeName: String, brickType: BrickType, bonusAdded: Bool){
         let texture = SKTexture(imageNamed: Brick.getSpriteNode(spriteNodeName))
+        if bonusAdded {
+            bonus = Bonus(bonusType: Brick.generateBonusType())
+        }
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         self.brickType = brickType
@@ -36,5 +40,11 @@ class Brick : SKSpriteNode{
         default:
             return "brickwhite"
         }
+    }
+    class func generateBonusType() -> String {
+            switch arc4random()%5 {
+            case 0: return "extra_ball"
+            default: return "extra_ball"
+            }
     }
 }

@@ -21,6 +21,7 @@
 		F40DF0851B259C0D00D393AB /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0841B259C0D00D393AB /* Brick.swift */; };
 		F40DF0891B25C76100D393AB /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0881B25C76100D393AB /* GameOverScene.swift */; };
 		F4CE17791B28204B0065C0A8 /* GameStartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CE17781B28204B0065C0A8 /* GameStartScene.swift */; };
+		F4D101211B30203C0077C0D7 /* Bonus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D101201B30203C0077C0D7 /* Bonus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		F40DF0841B259C0D00D393AB /* Brick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
 		F40DF0881B25C76100D393AB /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOverScene.swift; path = ../GameOverScene.swift; sourceTree = "<group>"; };
 		F4CE17781B28204B0065C0A8 /* GameStartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStartScene.swift; sourceTree = "<group>"; };
+		F4D101201B30203C0077C0D7 /* Bonus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bonus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		F40DF05D1B2318F600D393AB /* BreakoutGame */ = {
 			isa = PBXGroup;
 			children = (
+				F4D101201B30203C0077C0D7 /* Bonus.swift */,
 				F4CE17781B28204B0065C0A8 /* GameStartScene.swift */,
 				F40DF0881B25C76100D393AB /* GameOverScene.swift */,
 				28DD6E3C1B25BE950091CCF0 /* GameBrain.swift */,
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28DD6E3B1B25B4940091CCF0 /* Level.swift in Sources */,
+				F4D101211B30203C0077C0D7 /* Bonus.swift in Sources */,
 				F40DF0651B2318F600D393AB /* GameScene.swift in Sources */,
 				F4CE17791B28204B0065C0A8 /* GameStartScene.swift in Sources */,
 				F40DF0891B25C76100D393AB /* GameOverScene.swift in Sources */,

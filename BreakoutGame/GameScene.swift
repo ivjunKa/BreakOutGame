@@ -17,7 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var balCatName = "ball"
     var brickCatName = "brickwhite"
     var paddleCatName = "paddle"
-    
+    var bonusCatName = "bonus"
 //    let balBitmask:UInt32 = 0x1 << 0
 //    let bottomBorderBitmask:UInt32 = 0x1 << 1
 //    let brickBitmask:UInt32 = 0x1 << 2
@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let bottomBorderBitmask:UInt32 = 2
     let brickBitmask:UInt32 = 3
     let paddleBitmask:UInt32 = 4
+    let bonusBitmask:UInt32 = 5
     
     override init(size: CGSize){
         super.init(size: size)
@@ -94,7 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask
         
         //creating bricks
-        let nrOfRows = 1
+        let nrOfRows = 3
         let nrOfCols = 3
         let padding:CGFloat = 20
         var colWidth = SKSpriteNode(imageNamed: brickCatName).size.width
@@ -110,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nextColPos = 0
             for index in 1...nrOfCols {
 //                let brick = SKSpriteNode(imageNamed: brickCatName)
-                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL)
+                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: index%2 == 0 ? true : false)
                 brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
 
                 brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
