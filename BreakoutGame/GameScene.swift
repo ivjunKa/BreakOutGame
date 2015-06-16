@@ -142,8 +142,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //bonus contact handler
         if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == paddleBitmask {
             println("apply bonus!!!")
+            contact.bodyB.node?.removeFromParent()
         }
-        
+        if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == balBitmask {
+            contact.bodyA.node?.physicsBody?.collisionBitMask = 0
+        }
         if checkGameForUpdate() {
             checkGameForNewSceneNodes()
         }
@@ -181,6 +184,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody?.allowsRotation = false
         
         ball.physicsBody?.categoryBitMask = balBitmask
+//        ball.physicsBody?.collisionBitMask = 0
         
         //add contact bitmask to determine when the ball hit border or brick
         ball.physicsBody?.contactTestBitMask = bottomBorderBitmask | brickBitmask

@@ -7,3 +7,8 @@
 //
 
 import Foundation
+class BonusType {
+    init(name: String){
+        println("bonus" + name + "created")
+    }
+}

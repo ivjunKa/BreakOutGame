@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 
 class Bonus : SKSpriteNode{
+    var bType: BonusType?
     
     init(bonusType: String){
         let texture = SKTexture(imageNamed: Bonus.getSpriteNode(bonusType))
@@ -21,7 +22,9 @@ class Bonus : SKSpriteNode{
     }
     class func getSpriteNode(bonusType: String) ->String{
         switch bonusType {
-        case "extra_ball": return "bonus_extra_ball"
+        case "extra_ball":
+            
+            return "bonus_extra_ball"
         default: return "bonus_extra_ball"
         }
     }
