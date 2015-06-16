@@ -1,9 +1,14 @@
 import SpriteKit
 
+import Accounts
+import Social
+
 class GameStartScene: SKScene {
     let gameStartButton: SKSpriteNode! = nil
     let gameExitButton: SKSpriteNode?
     let gameTutorialButton: SKSpriteNode?
+    
+    private var twitterAccount: ACAccount?
     
     override init(size: CGSize){
         super.init(size: size)
@@ -17,6 +22,7 @@ class GameStartScene: SKScene {
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        twitter_login()
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             if gameStartButton.containsPoint(location){
@@ -27,5 +33,21 @@ class GameStartScene: SKScene {
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func twitter_login(){
+        let accountStore = ACAccountStore()
+        let twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+        accountStore.requestAccessToAccountsWithType(twitterAccountType, options: nil) { (granted, _) in
+            if granted {
+                if let account = accountStore.accountsWithAccountType(twitterAccountType)?.last as? ACAccount {
+                    self.twitterAccount = account
+                } else {
+                    println("Couldn't discover Twitter account type.")
+                }
+            } else {
+                let error = "Access to Twitter was not granted."
+            }
+        }
     }
 }

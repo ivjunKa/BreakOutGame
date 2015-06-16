@@ -161,10 +161,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == balBitmask {
             contact.bodyA.node?.physicsBody?.collisionBitMask = 0
         }
+
         if checkGameForUpdate() {
             checkGameForNewSceneNodes()
         }
-        println("Points: \(game!.getPoints())")
     }
     
     func checkGameForUpdate() -> Bool {
