@@ -33,6 +33,14 @@ class Brick : SKSpriteNode{
         return brickType!.onHit(self,game:game)
     }
     
+    func onBreak(game: GameBrain) -> Void{
+        
+    }
+    
+    func getPoints() -> Int {
+        return brickType!.getPoints()
+    }
+    
     class func getSpriteNode(brickType: String) -> String{
         switch brickType {
         case "normal" :

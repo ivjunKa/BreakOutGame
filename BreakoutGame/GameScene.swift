@@ -17,11 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var balCatName = "ball"
     var brickCatName = "brickwhite"
     var paddleCatName = "paddle"
+
     var bonusCatName = "bonus"
-//    let balBitmask:UInt32 = 0x1 << 0
-//    let bottomBorderBitmask:UInt32 = 0x1 << 1
-//    let brickBitmask:UInt32 = 0x1 << 2
-//    let paddleBitmask:UInt32 = 0x1 << 3
 
     let balBitmask:UInt32 = 1
     let bottomBorderBitmask:UInt32 = 2
@@ -170,17 +167,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
-//            println("game over")
-            let gameOverScene = GameOverScene(size: self.size, playerWin : false)
-            self.view?.presentScene(gameOverScene)
+            if let ball = contact.bodyB.node as? Ball {
+                game!.ballLost(ball)
+                ball.removeFromParent()
+            } //else if let bonus = contact.bodyB.node as? Bonus {
+            
         }
         if contact.bodyA.categoryBitMask == brickBitmask {
-//            println("brick hit")
-            let brick = contact.bodyA.node! as? Brick
-            
-            if (brick!.onHit(game!)){
-                brick?.removeFromParent()
-                game!.addPoints(brick!.brickType!.getPoints())
+            //WE HIT A BRICK
+            let brick = contact.bodyA.node! as Brick
+            if game!.onBrickHit(brick) {
+                brick.removeFromParent()
+                
                 if checkWin(){
                     let gameOverScene = GameOverScene(size: self.size, playerWin : true)
                     self.view?.presentScene(gameOverScene)
@@ -188,8 +186,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        if checkGameForUpdate() {
+            checkGameForNewSceneNodes()
+        }
         println("Points: \(game!.getPoints())")
     }
+    
+    func checkGameForUpdate() -> Bool {
+        if checkWin(){
+            gameWin()
+        } else if checkLoss() {
+            gameOver()
+        } else {
+            return true
+        }
+        return false
+    }
+    
+    func checkGameForNewSceneNodes(){
+        while game!.ballsToAdd > 0 {
+            addBall()
+        }
+    }
+    
+    func addBall(){
+        var ball = Ball()
+        
+        game!.onAddBallToPaddle(ball)
+    }
+    
     func checkWin() -> Bool{
         var totalBricks = 0
         for nodes in self.children {
@@ -201,4 +226,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return totalBricks == 0
     }
     
+    func checkLoss() -> Bool {
+        return game!.finished
+    }
+    
+    func gameWin() {
+        
+    }
+    
+    func gameOver() {
+        let gameOverScene = GameOverScene(size: self.size, playerWin : false)
+        self.view?.presentScene(gameOverScene)
+    }
 }
