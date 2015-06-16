@@ -50,8 +50,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //creating an ball from image
         addBall()
-        addBall()
-        addBall()
         
         //create an paddle from image (CGRectGetMidX can be handy to get the midX position of the scene)
         let paddle = SKSpriteNode(imageNamed: paddleCatName)
@@ -101,7 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //TODO replace name of the sprite node with brick category
                 brick.name = brickCatName
                 brick.physicsBody?.categoryBitMask = brickBitmask
-//                brick.physicsBody?.contactTestBitMask = balBitmask
+                brick.physicsBody?.collisionBitMask = 0
                 brick.physicsBody?.dynamic = false
 
                 self.addChild(brick)
@@ -156,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 game!.ballLost(ball)
                 ball.removeFromParent()
             } else if let bonus = contact.bodyB.node as? Bonus {
-                
+                contact.bodyB.node?.removeFromParent()
             }
         }
 
@@ -173,8 +171,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     bonus.name = bonusCatName
                     bonus.physicsBody?.categoryBitMask = bonusBitmask
                     bonus.physicsBody?.contactTestBitMask = bottomBorderBitmask | paddleBitmask
+                    bonus.physicsBody?.collisionBitMask = 0
                     self.addChild(bonus)
-                    bonus.physicsBody?.applyImpulse(CGVectorMake(2, -2))
+                    bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
                 }
                 if checkWin(){
                     let gameOverScene = GameOverScene(size: self.size, playerWin : true)
@@ -182,8 +181,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        if contact.bodyB.categoryBitMask == bonusBitmask {
-            println("bonus is now colliding")
+        //bonus contact handler
+        if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == paddleBitmask {
+            println("apply bonus!!!")
         }
         
         if checkGameForUpdate() {
