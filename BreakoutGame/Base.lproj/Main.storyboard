@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="GOp-Fh-HMI">
             <objects>
-                <viewController id="oOv-68-XRE" sceneMemberID="viewController">
+                <viewController id="oOv-68-XRE" customClass="SettingsViewController" customModule="BreakoutGame" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rvV-Ef-7YF"/>
                         <viewControllerLayoutGuide type="bottom" id="dtw-EL-HwG"/>
