@@ -5,10 +5,11 @@ import Social
 
 class GameStartScene: SKScene {
     let gameStartButton: SKSpriteNode! = nil
-    let gameExitButton: SKSpriteNode?
+    let twitterButton: SKSpriteNode! = nil
+    let facebookButton: SKSpriteNode! = nil
     let gameTutorialButton: SKSpriteNode?
     
-    private var twitterAccount: ACAccount?
+    private var account: ACAccount?
     
     override init(size: CGSize){
         super.init(size: size)
@@ -19,15 +20,30 @@ class GameStartScene: SKScene {
         gameStartButton = SKSpriteNode(imageNamed: "startGameButton")
         gameStartButton.position = CGPointMake(self.frame.midX, self.frame.midY)
         self.addChild(gameStartButton)
+        
+        twitterButton = SKSpriteNode(imageNamed: "twitter-logo")
+        twitterButton.setScale(0.3)
+        twitterButton.position = CGPointMake(self.frame.midX + twitterButton.frame.midX, gameStartButton.frame.minY - (twitterButton.frame.maxX - twitterButton.frame.minY)/2)
+        self.addChild(twitterButton)
+        
+        facebookButton = SKSpriteNode(imageNamed: "facebook-logo")
+        facebookButton.setScale(0.3)
+        facebookButton.position = CGPointMake(self.frame.midX - (twitterButton.frame.maxX - twitterButton.frame.minX), twitterButton.frame.midY)
+        //self.addChild(facebookButton)
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        twitter_login()
+        
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             if gameStartButton.containsPoint(location){
                 let gameScene = GameScene(size: self.size)
+                gameScene.account = account
                 self.view?.presentScene(gameScene)
+            } else if twitterButton.containsPoint(location){
+                twitter_login()
+            } else if facebookButton.containsPoint(location){
+                facebook_login()
             }
         }
     }
@@ -36,17 +52,19 @@ class GameStartScene: SKScene {
     }
     
     func twitter_login(){
+        login(ACAccountTypeIdentifierTwitter)
+    }
+    
+    func facebook_login(){
+        login(ACAccountTypeIdentifierFacebook)
+    }
+    
+    func login(identifier: String) {
         let accountStore = ACAccountStore()
-        let twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-        accountStore.requestAccessToAccountsWithType(twitterAccountType, options: nil) { (granted, _) in
+        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(identifier)
+        accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted, _) in
             if granted {
-                if let account = accountStore.accountsWithAccountType(twitterAccountType)?.last as? ACAccount {
-                    self.twitterAccount = account
-                } else {
-                    println("Couldn't discover Twitter account type.")
-                }
-            } else {
-                let error = "Access to Twitter was not granted."
+                self.account = accountStore.accountsWithAccountType(accountType)?.last as? ACAccount
             }
         }
     }

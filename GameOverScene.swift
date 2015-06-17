@@ -1,6 +1,9 @@
 import SpriteKit
+import Accounts
 
 class GameOverScene: SKScene {
+    
+    var account: ACAccount?
     
      init(size: CGSize, playerWin: Bool){
         super.init(size: size)
@@ -18,12 +21,19 @@ class GameOverScene: SKScene {
             message.text = "You LOSE!!"
         }
         self.addChild(message)
+        
+        loadPostScore()
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         let gameScene = GameStartScene(size: self.size)
         self.view?.presentScene(gameScene)
     }
+    
+    func loadPostScore(){
+        if account == nil { return }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

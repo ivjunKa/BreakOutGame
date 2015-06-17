@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import Accounts
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -23,7 +24,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var balCatName = "ball"
     var brickCatName = "brickwhite"
     var paddleCatName = "paddle"
-
     var bonusCatName = "bonus"
 
     var LABEL_POINTS = "POINTS"
@@ -31,6 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var LABEL_POINTS_TEXT = "Points: "
     var LABEL_LIVES_TEXT = "Lives: "
     
+    var account: ACAccount?
     
     let balBitmask:UInt32 = 1
     let bottomBorderBitmask:UInt32 = 2
@@ -329,6 +330,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver(win: Bool) {
         let gameOverScene = GameOverScene(size: self.size, playerWin : win)
+        gameOverScene.account = account
         self.view?.presentScene(gameOverScene)
     }
     override func update(currentTime: NSTimeInterval) {
