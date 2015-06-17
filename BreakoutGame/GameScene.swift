@@ -290,7 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let labelDistance: CGFloat = 20
         var label = addLabel(LABEL_POINTS,point: CGPointMake(0, self.frame.maxY-labelDistance))
         addLabel(LABEL_LIVES, point: CGPointMake(0, label.position.y-labelDistance))
-        addLabel("BLA", point: CGPointMake(self.frame.midX,self.frame.midY))
+        addLabel("BLA", point: CGPointMake(self.frame.midX, self.frame.midY))
         updateLabels()
     }
     
@@ -301,6 +301,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         message.position = point
         message.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         self.addChild(message)
+        println("Label added",tag)
         return message
     }
     func dismissLabel(tag:String){
