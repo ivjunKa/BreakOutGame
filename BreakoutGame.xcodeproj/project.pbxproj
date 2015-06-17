@@ -13,6 +13,7 @@
 		28DD6EA51B3021D30091CCF0 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD6EA41B3021D30091CCF0 /* Ball.swift */; };
 		28F8E60E1B3043F200451096 /* Paddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8E60D1B3043F200451096 /* Paddle.swift */; };
 		28F8E6121B31A92A00451096 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F8E6111B31A92A00451096 /* SettingsViewController.swift */; };
+		28F8E6141B31AE0100451096 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28F8E6131B31AE0100451096 /* Settings.bundle */; };
 		F40DF0611B2318F600D393AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0601B2318F600D393AB /* AppDelegate.swift */; };
 		F40DF0631B2318F600D393AB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F40DF0621B2318F600D393AB /* GameScene.sks */; };
 		F40DF0651B2318F600D393AB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40DF0641B2318F600D393AB /* GameScene.swift */; };
@@ -45,6 +46,7 @@
 		28DD6EA41B3021D30091CCF0 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		28F8E60D1B3043F200451096 /* Paddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paddle.swift; sourceTree = "<group>"; };
 		28F8E6111B31A92A00451096 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		28F8E6131B31AE0100451096 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F40DF05B1B2318F600D393AB /* BreakoutGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakoutGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F40DF05F1B2318F600D393AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F40DF0601B2318F600D393AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				F40DF06B1B2318F600D393AB /* Images.xcassets */,
 				F40DF06D1B2318F600D393AB /* LaunchScreen.xib */,
 				F40DF05E1B2318F600D393AB /* Supporting Files */,
+				28F8E6131B31AE0100451096 /* Settings.bundle */,
 			);
 			path = BreakoutGame;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			files = (
 				F40DF06F1B2318F600D393AB /* LaunchScreen.xib in Resources */,
 				F40DF06C1B2318F600D393AB /* Images.xcassets in Resources */,
+				28F8E6141B31AE0100451096 /* Settings.bundle in Resources */,
 				F40DF0631B2318F600D393AB /* GameScene.sks in Resources */,
 				F40DF06A1B2318F600D393AB /* Main.storyboard in Resources */,
 			);

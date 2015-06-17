@@ -18,6 +18,9 @@
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ybh-Ij-zfZ">
                                 <rect key="frame" x="241" y="72" width="118" height="31"/>
+                                <connections>
+                                    <action selector="numLives:" destination="oOv-68-XRE" eventType="valueChanged" id="w1U-OJ-O2X"/>
+                                </connections>
                             </slider>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CZ4-OU-ou6">
                                 <rect key="frame" x="239" y="110" width="123" height="29"/>
@@ -25,6 +28,9 @@
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
+                                <connections>
+                                    <action selector="startingBalls:" destination="oOv-68-XRE" eventType="valueChanged" id="C1Q-qH-NNC"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSh-mv-JDO">
                                 <rect key="frame" x="277" y="146" width="46" height="30"/>
