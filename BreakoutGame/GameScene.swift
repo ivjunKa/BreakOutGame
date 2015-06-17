@@ -13,6 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var game: GameBrain?
     var paddle: Paddle?
+    var level: Level?
     
     var touchingTheScreen = false
     //Handling bonus countdown
@@ -270,7 +271,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                let brick = SKSpriteNode(imageNamed: brickCatName)
                 let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: true)
                 brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
-
                 brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
                 brick.physicsBody?.allowsRotation = false
                 brick.physicsBody?.friction = 0
@@ -279,9 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 brick.physicsBody?.categoryBitMask = brickBitmask
                 brick.physicsBody?.collisionBitMask = 0
                 brick.physicsBody?.dynamic = false
-
                 self.addChild(brick)
-                
                 nextColPos! += colWidth + padding
             }
         }
