@@ -43,7 +43,6 @@ class BrickType {
     class var BONUS: BrickType {
         class BonusPoints: BrickType {
             override func onHit(brick: Brick, game: GameBrain) -> (Bool) {
-                println("Hits left: \(brick.hitCount)")
                 game.addPoints(game.getPoints())
                 return true
             }

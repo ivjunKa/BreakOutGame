@@ -12,15 +12,16 @@ import SpriteKit
 class Brick : SKSpriteNode{
     
     let brickType: BrickType?
-    let hitCount: Int?
+    var hitCount: Int = 0
     let bonus: Bonus?
     
     init(spriteNodeName: String, brickType: BrickType, bonusAdded: Bool){
         let texture = SKTexture(imageNamed: Brick.getSpriteNode(spriteNodeName))
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
         if bonusAdded {
             bonus = Bonus(bonusType: Brick.generateBonusType())
         }
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         self.brickType = brickType
     }
@@ -30,7 +31,10 @@ class Brick : SKSpriteNode{
     }
 
     func onHit(game: GameBrain ) -> Bool{
-        return brickType!.onHit(self,game:game)
+        hitCount++
+        brickType!.onHit(self,game:game)
+        
+        return brickType!.getMaxHits() <= hitCount
     }
     
     func onBreak(game: GameBrain) -> Void{
