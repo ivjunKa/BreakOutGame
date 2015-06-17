@@ -79,6 +79,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //creating an ball from image
         addBall()
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -288,6 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let labelDistance: CGFloat = 20
         var label = addLabel(LABEL_POINTS,point: CGPointMake(0, self.frame.maxY-labelDistance))
         addLabel(LABEL_LIVES, point: CGPointMake(0, label.position.y-labelDistance))
+        addLabel("BLA", point: CGPointMake(self.frame.midX,self.frame.midY))
         updateLabels()
     }
     
@@ -300,7 +303,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(message)
         return message
     }
-    
+    func dismissLabel(tag:String){
+        for nodes in self.children {
+            let node = nodes as SKNode
+            if node.name == tag {
+                node.removeFromParent()
+            }
+        }
+    }
     func checkWin() -> Bool{
         var totalBricks = 0
         for nodes in self.children {
