@@ -25,15 +25,19 @@ class Bonus : SKSpriteNode{
     class func getSpriteNode(bonusType: String) ->String{
         switch bonusType {
         case "bigger_paddle":
-            return "bonus_extra_ball"
-        default: return "bonus_extra_ball"
+            return "bonus_bigger_paddle"
+        case "extra_life":
+            return "bonus_extra_life"
+        default: return "bonus_bigger_paddle"
         }
     }
     func getBonusType(bonusType: String){
         switch bonusType{
             case "bigger_paddle":
-            self.bType = BonusType.BIGGER_PADDLE()
-            default: self.bType = BonusType.BIGGER_PADDLE()
+                self.bType = BonusType.BIGGER_PADDLE(name: "Big Paddle")
+            case "extra_life":
+            self.bType = BonusType.EXTRA_LIVE(name: "Extra Life")
+            default: self.bType = BonusType.BIGGER_PADDLE(name: "Big Paddle")
         }
     }
 }

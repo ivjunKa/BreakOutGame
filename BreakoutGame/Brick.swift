@@ -52,6 +52,7 @@ class Brick : SKSpriteNode{
     class func generateBonusType() -> String {
             switch arc4random()%5 {
             case 0: return "bigger_paddle"
+            case 1: return "extra_life"
             default: return "bigger_paddle"
             }
     }

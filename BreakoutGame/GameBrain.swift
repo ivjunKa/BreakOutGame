@@ -14,6 +14,7 @@ class GameBrain {
     var ballsToAdd: Int = 0
     var finished: Bool = false
     var points: Int = 0
+    var countDownBonus: Float = 0.0
     
     var level: Level?
     

@@ -14,7 +14,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var paddle: Paddle?
     
     var touchingTheScreen = false
-    
+    //Handling bonus countdown
+    var bonusExpiresInSec: Float?
+    var startCountDownBonus: Bool = false
+    var getCurrentTime: Bool = false
+    var bonusTypeAppliedNow: BonusType?
+    //------
     var balCatName = "ball"
     var brickCatName = "brickwhite"
     var paddleCatName = "paddle"
@@ -154,6 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             println(contact.bodyB.node)
             if let bonus = contact.bodyB.node as? Bonus {
                 bonus.bType?.applyBonus(self)
+                bonusTypeAppliedNow = bonus.bType?
             }
             contact.bodyB.node?.removeFromParent()
             
@@ -314,5 +320,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let gameOverScene = GameOverScene(size: self.size, playerWin : win)
         self.view?.presentScene(gameOverScene)
     }
-    
+    override func update(currentTime: NSTimeInterval) {
+        if getCurrentTime {
+            self.bonusExpiresInSec = Float(currentTime) + game!.countDownBonus
+            getCurrentTime = false
+        }
+        if startCountDownBonus {
+            if Float(currentTime) >= self.bonusExpiresInSec {
+                bonusTypeAppliedNow?.dismissBonus(self)
+                startCountDownBonus = false
+            }
+        }
+    }
 }
