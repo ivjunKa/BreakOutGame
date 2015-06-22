@@ -160,18 +160,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     brick.texture = SKTexture(imageNamed: "brickwhite_broken")
                 }
                 brick.physicsBody?.collisionBitMask = 0
-                brick.runAction(SKAction.fadeOutWithDuration(0.2), completion : {
+                brick.runAction(SKAction.fadeOutWithDuration(0.1), completion : {
                 brick.removeFromParent()
                     if let bonus = brick.bonus {
+                        println("trying to create an bonus")
                         bonus.position = CGPointMake(brick.position.x, brick.position.y)
-                        bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
+                        bonus.physicsBody = SKPhysicsBody(circleOfRadius: bonus.frame.size.width/2)
                         bonus.physicsBody?.allowsRotation = false
                         bonus.name = self.bonusCatName
                         bonus.physicsBody?.categoryBitMask = self.bonusBitmask
-                        bonus.physicsBody?.contactTestBitMask = self.bottomBorderBitmask | self.paddleBitmask
-                        bonus.physicsBody?.collisionBitMask = 0
-                        self.addChild(bonus)
-                        bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
+//                        bonus.physicsBody?.contactTestBitMask = self.bottomBorderBitmask | self.paddleBitmask
+                        bonus.physicsBody?.contactTestBitMask = self.balBitmask
+//                        bonus.physicsBody?.collisionBitMask = 0
+                        bonus.physicsBody?.dynamic = false
+                        println("TRYING TO ADD AN BONUS")
+                        if bonus.parent == nil {
+                            self.addChild(bonus)
+                        }
+//                        bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
                     }
                 })
                 if checkWin(){
@@ -187,12 +193,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bonusTypeAppliedNow = bonus.bType?
             }
             contact.bodyB.node?.removeFromParent()
-            
         }
-        if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == balBitmask ||
-        contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == bonusBitmask {
-//                contact.bodyB.node?.physicsBody?.collisionBitMask = 1
-//                contact.bodyA.node?.physicsBody?.collisionBitMask = 1
+        if contact.bodyA.categoryBitMask == bonusBitmask && contact.bodyB.categoryBitMask == balBitmask{
+            if let bonus = contact.bodyA.node as? Bonus {
+                bonus.bType?.applyBonus(self)
+                bonusTypeAppliedNow = bonus.bType?
+            }
+            contact.bodyA.node?.removeFromParent()
         }
 
         if checkGameForUpdate(){
