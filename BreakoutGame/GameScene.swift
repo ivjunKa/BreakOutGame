@@ -228,7 +228,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBalls(){
-        if (defaults.objectForKey(BALLS) != nil) {
+        if defaults.objectForKey(BALLS) != nil {
             for i in 1...defaults.integerForKey(BALLS) {
                 addBall()
             }
