@@ -42,14 +42,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize){
         super.init(size: size)
-         self.level = Level(levelName: "1-1",gameBounds: self.frame.size.width)
+        self.level = Level(levelName: "1-2",gameBounds: self.frame.size.width)
         game = GameBrain(level: level!, gameBounds: self.frame.size.width)
         //adding delegate to detect collision
         self.physicsWorld.contactDelegate = self
         //creating and adding backround image
-        let backgroundImage = SKSpriteNode(imageNamed: "bgwall")
-        backgroundImage.position = CGPointMake(self.frame.midX, self.frame.midY)
-        self.addChild(backgroundImage)
+//        let backgroundImage = SKSpriteNode(imageNamed: "bgwall")
+        let backgroundImage = level?.getBackground()
+        
+        backgroundImage!.position = CGPointMake(self.frame.midX, self.frame.midY)
+        self.addChild(backgroundImage!)
         
         //disable standart gravity
         self.physicsWorld.gravity = CGVectorMake(0, 0)
@@ -140,8 +142,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let brick = contact.bodyA.node! as Brick
             if game!.onBrickHit(brick) {
                 //returns true when the brick breaks
-                brick.removeFromParent()
-
+//                brick.removeFromParent()
+                brick.physicsBody?.dynamic = true
+                brick.physicsBody?.collisionBitMask = 0                
+                brick.physicsBody?.applyImpulse(CGVectorMake(0, -30))
+                
                 if let bonus = brick.bonus {
                     bonus.position = CGPointMake(brick.position.x, brick.position.y)
                     bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
