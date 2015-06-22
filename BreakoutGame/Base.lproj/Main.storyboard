@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ybh-Ij-zfZ">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="ybh-Ij-zfZ">
                                 <rect key="frame" x="241" y="72" width="118" height="31"/>
                                 <connections>
                                     <action selector="numLives:" destination="oOv-68-XRE" eventType="valueChanged" id="w1U-OJ-O2X"/>
@@ -25,23 +25,33 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CZ4-OU-ou6">
                                 <rect key="frame" x="239" y="110" width="123" height="29"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
                                 </segments>
                                 <connections>
                                     <action selector="startingBalls:" destination="oOv-68-XRE" eventType="valueChanged" id="C1Q-qH-NNC"/>
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSh-mv-JDO">
-                                <rect key="frame" x="277" y="146" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="277" y="146" width="70" height="30"/>
+                                <state key="normal" title="HACKS">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Balls: 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd1-av-ad4">
+                                <rect key="frame" x="385" y="76" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="cdo-db-sN7"/>
+                    <connections>
+                        <outlet property="livesLabel" destination="Xd1-av-ad4" id="PGH-OS-yxI"/>
+                        <outletCollection property="rgxc" destination="ybh-Ij-zfZ" id="MQO-Rf-TvT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fG7-h4-XQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

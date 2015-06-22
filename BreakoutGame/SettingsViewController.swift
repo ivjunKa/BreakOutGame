@@ -10,14 +10,20 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
+    override func viewDidLoad() {
+        
+    }
+    
+    @IBOutlet weak var livesLabel: UILabel!
     
     @IBAction func numLives(sender: UISlider) {
-        
+        livesLabel.text = "Balls: \(sender.value)"
     }
     
     @IBAction func startingBalls(sender: UISegmentedControl) {
         
     }
-    
     
 }
