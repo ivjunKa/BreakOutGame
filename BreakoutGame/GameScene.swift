@@ -40,6 +40,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let paddleBitmask:UInt32 = 4
     let bonusBitmask:UInt32 = 5
     
+    let fadeoutAction = SKAction.customActionWithDuration(10.0, actionBlock: { (node: SKNode!, elapsedTime: CGFloat) -> Void in
+//        node.texture = SKTexture(imageNamed: "brickwhite_broken")
+        let spriteNode = node as SKSpriteNode
+        spriteNode.runAction(SKAction.fadeInWithDuration(10))
+        spriteNode.removeFromParent()
+    })
     override init(size: CGSize){
         super.init(size: size)
         self.level = Level(levelName: "1-2",gameBounds: self.frame.size.width)
@@ -140,13 +146,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == brickBitmask {
             //WE HIT A BRICK HURAY
             let brick = contact.bodyA.node! as Brick
+            brick.texture = SKTexture(imageNamed: "brickwhite_broken")
             if game!.onBrickHit(brick) {
                 //returns true when the brick breaks
 //                brick.removeFromParent()
-                brick.physicsBody?.dynamic = true
-                brick.physicsBody?.collisionBitMask = 0                
-                brick.physicsBody?.applyImpulse(CGVectorMake(0, -30))
-                
                 if let bonus = brick.bonus {
                     bonus.position = CGPointMake(brick.position.x, brick.position.y)
                     bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
@@ -158,6 +161,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.addChild(bonus)
                     bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
                 }
+                brick.runAction(fadeoutAction)
+
                 if checkWin(){
                     let gameOverScene = GameOverScene(size: self.size, playerWin : true)
                     self.view?.presentScene(gameOverScene)
