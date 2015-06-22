@@ -11,5 +11,5 @@ import Foundation
 import SpriteKit
 
 class Ball : SKSpriteNode{
-    
+    var dead: Bool = false
 }

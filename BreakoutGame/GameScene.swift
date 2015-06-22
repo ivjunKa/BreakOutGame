@@ -131,15 +131,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        
         if contact.bodyA.categoryBitMask == bottomBorderBitmask {
             //something hits the bottom
             if let ball = contact.bodyB.node as? Ball {
-                //we lost a ball
-                game!.ballLost(ball)
-                ball.removeFromParent()
+                if !ball.dead {
+                    //we lost a ball
+                    ball.dead = true
+                    game!.ballLost(ball)
+                    contact.bodyB.node?.removeFromParent()
+                    contact.bodyB.categoryBitMask = 99
+                }
             } else if let bonus = contact.bodyB.node as? Bonus {
                 //we lost a bonus
                 contact.bodyB.node?.removeFromParent()
+                contact.bodyB.categoryBitMask = 99
             }
         } else if contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == brickBitmask {
             //WE HIT A BRICK HURAY
@@ -176,7 +182,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         //bonus contact handler
         if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == paddleBitmask {
-            println(contact.bodyB.node)
             if let bonus = contact.bodyB.node as? Bonus {
                 bonus.bType?.applyBonus(self)
                 bonusTypeAppliedNow = bonus.bType?
@@ -190,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                contact.bodyA.node?.physicsBody?.collisionBitMask = 1
         }
 
-        if checkGameForUpdate() {
+        if checkGameForUpdate(){
             checkGameForNewSceneNodes()
         }
     }
@@ -240,7 +245,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addBall(){
         var ball = Ball(imageNamed: balCatName)
         ball.name = balCatName
-        
+        ball.position = paddle!.position
+        ball.position.y += paddle!.frame.size.height*2
         //creating the physics body for the ball so it can "communicate" with the world
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.frame.size.width/2)
         ball.physicsBody?.friction = 0
@@ -304,7 +310,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         message.position = point
         message.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         self.addChild(message)
-        println("Label added",tag)
         return message
     }
     func dismissLabel(tag:String){
