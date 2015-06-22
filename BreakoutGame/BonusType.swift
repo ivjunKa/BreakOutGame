@@ -27,7 +27,7 @@ class BonusType {
                         game.game!.countDownBonus = 5.0
                         game.getCurrentTime = true
                         game.startCountDownBonus = true
-                        node.xScale = 2
+                        node.xScale *= 2
 //                        game.addLabel("Bonus received:",point: CGPointMake(game.frame.midX, game.frame.midY))
 //                        game.updateLabels()
                     }

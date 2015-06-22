@@ -29,8 +29,8 @@ class SettingsViewController: UIViewController {
             paddleStepper.value = Double(defaults.integerForKey(PADDLE))
             paddleSizeLabel.text = "paddle size: \(defaults.integerForKey(PADDLE))"
         }
-        if (defaults.objectForKey(PADDLE) != nil) {
-            startingBalls.selectedSegmentIndex = defaults.integerForKey(BALLS)
+        if (defaults.objectForKey(BALLS) != nil) {
+            startingBalls.selectedSegmentIndex = defaults.integerForKey(BALLS)-1
         }
     }
     
@@ -45,7 +45,8 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func startingBalls(sender: UISegmentedControl) {
-        defaults.setInteger(sender.selectedSegmentIndex, forKey: BALLS)
+        println("arg: \(sender.selectedSegmentIndex)")
+        defaults.setInteger(sender.selectedSegmentIndex+1, forKey: BALLS)
     }
     
     @IBOutlet weak var paddleSizeLabel: UILabel!

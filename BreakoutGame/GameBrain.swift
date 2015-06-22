@@ -18,13 +18,17 @@ class GameBrain {
     var gameBounds: CGFloat?
     var level: Level?
     
-//    convenience init(){
-//        self.init()
-//    }
+    private final var LIVES: String = "startlives";
+    private final var BALLS: String = "starting_balls";
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     init(level l: Level, gameBounds: CGFloat){
         self.level = l
         self.gameBounds = gameBounds
+        
+        if (defaults.objectForKey(LIVES) != nil) {
+            livesCount = defaults.integerForKey(LIVES)
+        }
     }
     
     func addPoints(p: Int){
@@ -39,7 +43,11 @@ class GameBrain {
         if ballCount == 0{
             if livesCount > 0 {
                 livesCount--
-                shouldAddBallToPaddle()
+                if (defaults.objectForKey(BALLS) != nil) {
+                    for i in 1...defaults.integerForKey(BALLS){
+                        shouldAddBallToPaddle()
+                    }
+                } else {shouldAddBallToPaddle()}
             } else {
                 //game over
                 finishGame("No lives left")
