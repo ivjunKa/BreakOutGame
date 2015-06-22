@@ -100,7 +100,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        println("touch began")
         var touch = touches.anyObject() as UITouch
         var touchPos = touch.locationInNode(self)
         
@@ -256,7 +255,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func createPaddle(){
         paddle = Paddle(spriteName: paddleCatName)
         if defaults.objectForKey(PADDLE) != nil {
-            paddle!.xScale = CGFloat(defaults.integerForKey(PADDLE) / 5)
+            paddle!.xScale = CGFloat(Float(defaults.integerForKey(PADDLE)) / 5)
         }
     
         paddle!.name = paddleCatName
