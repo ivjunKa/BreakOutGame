@@ -147,13 +147,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             brick.texture = SKTexture(imageNamed: "brickred")
             if game!.onBrickHit(brick) {
                 //returns true when the brick breaks
-//                brick.removeFromParent()
-                
-                brick.texture = SKTexture(imageNamed: "brickwhite_broken")
-//                brick.runAction(fadeoutAction)
+                if brick.brickType! == BrickType.BONUS{
+                    brick.texture = SKTexture(imageNamed: "brickred_broken")
+                }
+                else if brick.brickType! == BrickType.NORMAL {
+                    brick.texture = SKTexture(imageNamed: "brickwhite_broken")
+                }
                 brick.physicsBody?.collisionBitMask = 0
                 brick.runAction(SKAction.fadeOutWithDuration(0.2), completion : {
-                    brick.removeFromParent()
+                brick.removeFromParent()
                     if let bonus = brick.bonus {
                         bonus.position = CGPointMake(brick.position.x, brick.position.y)
                         bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
