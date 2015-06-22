@@ -99,10 +99,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var touchPos = touch.locationInNode(self)
         
         let body:SKPhysicsBody? = self.physicsWorld.bodyAtPoint(touchPos)
+        touchingTheScreen = true
         
         if body?.node?.name == paddleCatName {
             println("paddle clicked")
-            touchingTheScreen = true
         }
     }
     
