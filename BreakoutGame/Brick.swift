@@ -34,7 +34,6 @@ class Brick : SKSpriteNode{
     func onHit(game: GameBrain ) -> Bool{
         hitCount++
         brickType!.onHit(self,game:game)
-        
         return brickType!.getMaxHits() <= hitCount
     }
     
