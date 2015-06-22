@@ -42,9 +42,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize){
         super.init(size: size)
-        
-        game = GameBrain()
-        
+         self.level = Level(levelName: "1-1",gameBounds: self.frame.size.width)
+        game = GameBrain(level: level!, gameBounds: self.frame.size.width)
         //adding delegate to detect collision
         self.physicsWorld.contactDelegate = self
         //creating and adding backround image
@@ -76,11 +75,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //load labels
         loadLabels()
         
-        //laod bricks
-        loadBricks(game!.level)
+        //load bricks
+        
+        loadBricks()
         
         //creating an ball from image
         addBall()
+        
+        
         
         
     }
@@ -251,37 +253,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         paddle!.physicsBody?.categoryBitMask = paddleBitmask
     }
     
-    func loadBricks(level: Level?){
-        //creating bricks
-        let nrOfRows = 3
-        let nrOfCols = 3
-        let padding:CGFloat = 20
-        var colWidth = SKSpriteNode(imageNamed: brickCatName).size.width
-        //TODO find the way to write calculation below in on line
-        var totalColWidth = (CGFloat(nrOfCols) * colWidth)
-        var totalPaddingWidth = (CGFloat(nrOfCols - 1)) * padding
-        var offsetX = (self.frame.size.width - (totalColWidth + CGFloat(totalPaddingWidth)))/2
-        
-        var offsetY: CGFloat = 100
-        var nextColPos: CGFloat?
-        for index in 1...nrOfRows {
-            offsetY += 50
-            nextColPos = 0
-            for index in 1...nrOfCols {
-//                let brick = SKSpriteNode(imageNamed: brickCatName)
-                let brick : Brick = Brick(spriteNodeName: "normal", brickType: index == 1 ? BrickType.BONUS : BrickType.NORMAL,bonusAdded: true)
-                brick.position = CGPointMake(offsetX + nextColPos!, offsetY)
-                brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
-                brick.physicsBody?.allowsRotation = false
-                brick.physicsBody?.friction = 0
-                //TODO replace name of the sprite node with brick category
-                brick.name = brickCatName
-                brick.physicsBody?.categoryBitMask = brickBitmask
-                brick.physicsBody?.collisionBitMask = 0
-                brick.physicsBody?.dynamic = false
-                self.addChild(brick)
-                nextColPos! += colWidth + padding
-            }
+    func loadBricks(){
+        var bricks = level?.getBricksStructure()
+        for brick in bricks! {
+            self.addChild(brick)
         }
     }
     

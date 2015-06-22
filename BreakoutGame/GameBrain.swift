@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SpriteKit
 class GameBrain {
     var livesCount: Int = 1
     var ballCount: Int = 0
@@ -15,15 +15,16 @@ class GameBrain {
     var finished: Bool = false
     var points: Int = 0
     var countDownBonus: Float = 0.0
-    
+    var gameBounds: CGFloat?
     var level: Level?
     
-    convenience init(){
-        self.init(level: Level(levelName: "1-1"))
-    }
+//    convenience init(){
+//        self.init()
+//    }
     
-    init(level l: Level){
+    init(level l: Level, gameBounds: CGFloat){
         self.level = l
+        self.gameBounds = gameBounds
     }
     
     func addPoints(p: Int){
