@@ -32,6 +32,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var LABEL_POINTS_TEXT = "Points: "
     var LABEL_LIVES_TEXT = "Lives: "
     
+    private final var PADDLE: String = "paddle_size";
+    private final var BALLS: String = "starting_balls";
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     var account: ACAccount?
     
     let balBitmask:UInt32 = 1
@@ -82,11 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         loadBricks()
         
         //creating an ball from image
-        addBall()
-        
-        
-        
-        
+        addBalls()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -166,7 +166,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         //bonus contact handler
         if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == paddleBitmask {
-            println("apply bonus!!!")
             println(contact.bodyB.node)
             if let bonus = contact.bodyB.node as? Bonus {
                 bonus.bType?.applyBonus(self)
@@ -218,6 +217,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func addBalls(){
+        if (defaults.objectForKey(BALLS) != nil) {
+            for i in 1...defaults.integerForKey(BALLS) {
+                addBall()
+            }
+        } else {addBall()}
+    }
+    
     func addBall(){
         var ball = Ball(imageNamed: balCatName)
         ball.name = balCatName
@@ -243,8 +250,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createPaddle(){
         paddle = Paddle(spriteName: paddleCatName)
+        if defaults.objectForKey(PADDLE) != nil {
+            paddle!.xScale = CGFloat(defaults.integerForKey(PADDLE) / 5)
+        }
+    
         paddle!.name = paddleCatName
         paddle!.position = CGPointMake(self.frame.midX, paddle!.size.height * 2)
+        
         self.addChild(paddle!)
         
         //adding some physics to the paddle so it can "communicate" with ball
