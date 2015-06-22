@@ -10,20 +10,47 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    private final var LIVES: String = "startlives";
+    private final var PADDLE: String = "paddle_size";
+    private final var BALLS: String = "starting_balls";
+    
     let defaults = NSUserDefaults.standardUserDefaults()
     
+    @IBOutlet weak var startingBalls: UISegmentedControl!
+    @IBOutlet weak var paddleStepper: UIStepper!
+    @IBOutlet weak var livesSlider: UISlider!
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
+        if (defaults.objectForKey(LIVES) != nil) {
+            livesSlider.value = Float(defaults.integerForKey(LIVES))
+            livesLabel.text = "lives: \(defaults.integerForKey(LIVES))"
+        }
+        if (defaults.objectForKey(PADDLE) != nil) {
+            paddleStepper.value = Double(defaults.integerForKey(PADDLE))
+            paddleSizeLabel.text = "paddle size: \(defaults.integerForKey(PADDLE))"
+        }
+        if (defaults.objectForKey(PADDLE) != nil) {
+            startingBalls.selectedSegmentIndex = defaults.integerForKey(BALLS)
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
     }
     
     @IBOutlet weak var livesLabel: UILabel!
-    
     @IBAction func numLives(sender: UISlider) {
-        livesLabel.text = "Balls: \(sender.value)"
+        livesLabel.text = "lives: \(Int(sender.value))"
+        defaults.setInteger(Int(sender.value), forKey: LIVES)
     }
     
     @IBAction func startingBalls(sender: UISegmentedControl) {
-        
+        defaults.setInteger(sender.selectedSegmentIndex, forKey: BALLS)
     }
     
+    @IBOutlet weak var paddleSizeLabel: UILabel!
+    @IBAction func paddleSizeStepper(sender: UIStepper) {
+        paddleSizeLabel.text = "paddle size: \(Int(sender.value))"
+        defaults.setInteger(Int(sender.value), forKey: PADDLE)
+    }
 }

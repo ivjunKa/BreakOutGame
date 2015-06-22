@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="GOp-Fh-HMI">
             <objects>
                 <viewController id="oOv-68-XRE" customClass="SettingsViewController" customModule="BreakoutGame" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,43 +19,80 @@
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="ybh-Ij-zfZ">
                                 <rect key="frame" x="241" y="72" width="118" height="31"/>
                                 <connections>
-                                    <action selector="numLives:" destination="oOv-68-XRE" eventType="valueChanged" id="w1U-OJ-O2X"/>
+                                    <action selector="numLives:" destination="oOv-68-XRE" eventType="valueChanged" id="YNg-1n-u8D"/>
                                 </connections>
                             </slider>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CZ4-OU-ou6">
-                                <rect key="frame" x="239" y="110" width="123" height="29"/>
+                                <rect key="frame" x="239" y="201" width="123" height="29"/>
                                 <segments>
                                     <segment title="1"/>
                                     <segment title="2"/>
                                 </segments>
                                 <connections>
-                                    <action selector="startingBalls:" destination="oOv-68-XRE" eventType="valueChanged" id="C1Q-qH-NNC"/>
+                                    <action selector="startingBalls:" destination="oOv-68-XRE" eventType="valueChanged" id="WAu-mp-haQ"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSh-mv-JDO">
-                                <rect key="frame" x="277" y="146" width="70" height="30"/>
-                                <state key="normal" title="HACKS">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Balls: 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd1-av-ad4">
-                                <rect key="frame" x="385" y="76" width="64" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lives: 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd1-av-ad4">
+                                <rect key="frame" x="385" y="76" width="199" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="7A0-Yx-8xS">
+                                <rect key="frame" x="253" y="110" width="94" height="29"/>
+                                <connections>
+                                    <action selector="paddleSizeStepper:" destination="oOv-68-XRE" eventType="valueChanged" id="syY-z9-8nk"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="paddle size: 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuH-Ly-dOP">
+                                <rect key="frame" x="385" y="114" width="199" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starting balls per life" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tge-4J-ntu">
+                                <rect key="frame" x="16" y="172" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sZD-Sx-z2V">
+                                <rect key="frame" x="16" y="163" width="568" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gZ1-D2-KI0">
+                                <rect key="frame" x="16" y="237" width="568" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ENABLE CHEATS?!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bo4-Gf-0NK">
+                                <rect key="frame" x="16" y="246" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CI0-Ws-hXF">
+                                <rect key="frame" x="385" y="241" width="51" height="31"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cdo-db-sN7"/>
+                    <navigationItem key="navigationItem" title="Settings" id="cdo-db-sN7">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="dij-RM-cTy"/>
+                    </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="livesLabel" destination="Xd1-av-ad4" id="PGH-OS-yxI"/>
-                        <outletCollection property="rgxc" destination="ybh-Ij-zfZ" id="MQO-Rf-TvT"/>
+                        <outlet property="livesSlider" destination="ybh-Ij-zfZ" id="bVn-u2-BGI"/>
+                        <outlet property="paddleSizeLabel" destination="PuH-Ly-dOP" id="jth-ZE-1wP"/>
+                        <outlet property="paddleStepper" destination="7A0-Yx-8xS" id="dCx-8n-DCM"/>
+                        <outlet property="startingBalls" destination="CZ4-OU-ou6" id="6G4-ld-EDB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fG7-h4-XQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2093" y="533"/>
+            <point key="canvasLocation" x="2093" y="536"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
