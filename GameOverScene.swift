@@ -7,7 +7,7 @@ class GameOverScene: SKScene {
     
      init(size: CGSize, playerWin: Bool){
         super.init(size: size)
-        let backgroundImage = SKSpriteNode(imageNamed: "bgwall")
+        let backgroundImage = SKSpriteNode(imageNamed: "bg_wall_1")
         backgroundImage.position = CGPointMake(self.frame.midX, self.frame.midY)
         self.addChild(backgroundImage)
         

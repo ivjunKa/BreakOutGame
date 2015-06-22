@@ -13,7 +13,7 @@ class GameStartScene: SKScene {
     
     override init(size: CGSize){
         super.init(size: size)
-        let backgroundImage = SKSpriteNode(imageNamed: "bgwall")
+        let backgroundImage = SKSpriteNode(imageNamed: "bg_wall_1")
         backgroundImage.position = CGPointMake(self.frame.midX, self.frame.midY)
         self.addChild(backgroundImage)
         

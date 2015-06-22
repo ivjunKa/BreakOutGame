@@ -184,8 +184,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             contact.bodyB.node?.removeFromParent()
             
         }
-        if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == balBitmask {
-            contact.bodyA.node?.physicsBody?.collisionBitMask = 0
+        if contact.bodyB.categoryBitMask == bonusBitmask && contact.bodyA.categoryBitMask == balBitmask ||
+        contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == bonusBitmask {
+//                contact.bodyB.node?.physicsBody?.collisionBitMask = 1
+//                contact.bodyA.node?.physicsBody?.collisionBitMask = 1
         }
 
         if checkGameForUpdate() {
