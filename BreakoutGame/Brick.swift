@@ -14,6 +14,7 @@ class Brick : SKSpriteNode{
     let brickType: BrickType?
     var hitCount: Int = 0
     let bonus: Bonus?
+    var brickDestroyedImg: String?
     
     init(spriteNodeName: String, brickType: BrickType, bonusAdded: Bool){
         let texture = SKTexture(imageNamed: Brick.getSpriteNode(spriteNodeName))

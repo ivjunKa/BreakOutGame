@@ -27,7 +27,7 @@ class BonusType {
                         game.game!.countDownBonus = 5.0
                         game.getCurrentTime = true
                         game.startCountDownBonus = true
-                        node.xScale *= 2
+                        node.xScale *= 1.1
 //                        game.addLabel("Bonus received:",point: CGPointMake(game.frame.midX, game.frame.midY))
 //                        game.updateLabels()
                     }
@@ -37,7 +37,7 @@ class BonusType {
                 for nodes in game.children {
                     var node = nodes as SKNode
                     if node.name == "paddle" {
-                        node.xScale /= 2
+                        node.xScale /= 1.1
                         game.bonusExpiresInSec = 0.0
 //                        game.dismissLabel("Bonus received")
                     }

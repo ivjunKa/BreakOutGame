@@ -46,9 +46,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let fadeoutAction = SKAction.customActionWithDuration(10.0, actionBlock: { (node: SKNode!, elapsedTime: CGFloat) -> Void in
 //        node.texture = SKTexture(imageNamed: "brickwhite_broken")
-        let spriteNode = node as SKSpriteNode
-        spriteNode.runAction(SKAction.fadeInWithDuration(10))
-        spriteNode.removeFromParent()
+//        let spriteNode = node as SKSpriteNode
+        node.removeFromParent()
     })
     override init(size: CGSize){
         super.init(size: size)
@@ -146,23 +145,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if contact.bodyB.categoryBitMask == balBitmask && contact.bodyA.categoryBitMask == brickBitmask {
             //WE HIT A BRICK HURAY
             let brick = contact.bodyA.node! as Brick
-            brick.texture = SKTexture(imageNamed: "brickwhite_broken")
+            brick.texture = SKTexture(imageNamed: "brickred")
             if game!.onBrickHit(brick) {
                 //returns true when the brick breaks
 //                brick.removeFromParent()
-                if let bonus = brick.bonus {
-                    bonus.position = CGPointMake(brick.position.x, brick.position.y)
-                    bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
-                    bonus.physicsBody?.allowsRotation = false
-                    bonus.name = bonusCatName
-                    bonus.physicsBody?.categoryBitMask = bonusBitmask
-                    bonus.physicsBody?.contactTestBitMask = bottomBorderBitmask | paddleBitmask
-                    bonus.physicsBody?.collisionBitMask = 0
-                    self.addChild(bonus)
-                    bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
-                }
-                brick.runAction(fadeoutAction)
-
+                
+                brick.texture = SKTexture(imageNamed: "brickwhite_broken")
+//                brick.runAction(fadeoutAction)
+                brick.physicsBody?.collisionBitMask = 0
+                brick.runAction(SKAction.fadeOutWithDuration(0.2), completion : {
+                    brick.removeFromParent()
+                    if let bonus = brick.bonus {
+                        bonus.position = CGPointMake(brick.position.x, brick.position.y)
+                        bonus.physicsBody = SKPhysicsBody(rectangleOfSize: bonus.frame.size)
+                        bonus.physicsBody?.allowsRotation = false
+                        bonus.name = self.bonusCatName
+                        bonus.physicsBody?.categoryBitMask = self.bonusBitmask
+                        bonus.physicsBody?.contactTestBitMask = self.bottomBorderBitmask | self.paddleBitmask
+                        bonus.physicsBody?.collisionBitMask = 0
+                        self.addChild(bonus)
+                        bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
+                    }
+                })
                 if checkWin(){
                     let gameOverScene = GameOverScene(size: self.size, playerWin : true)
                     self.view?.presentScene(gameOverScene)
