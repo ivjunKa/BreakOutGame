@@ -15,14 +15,14 @@ class GameBrain {
     var finished: Bool = false
     var points: Int = 0
     var countDownBonus: Float = 0.0
-    var gameBounds: CGFloat?
+    var gameBounds: CGSize?
     var level: Level?
     
     private final var LIVES: String = "startlives";
     private final var BALLS: String = "starting_balls";
     let defaults = NSUserDefaults.standardUserDefaults()
     
-    init(level l: Level, gameBounds: CGFloat){
+    init(level l: Level, gameBounds: CGSize){
         self.level = l
         self.gameBounds = gameBounds
         

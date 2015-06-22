@@ -11,7 +11,7 @@ import SpriteKit
 
 class Level {
     
-    var gameBounds:CGFloat?
+    var gameBounds:CGSize?
     var levelName: String?
     var nrOfRows:Int?
     var nrOfCols:Int?
@@ -23,7 +23,8 @@ class Level {
     var bricks: Array<Brick>?
     
     var background: SKSpriteNode?
-    init(levelName name: String, gameBounds: CGFloat){
+    
+    init(levelName name: String, gameBounds: CGSize){
         self.levelName = name
         self.gameBounds = gameBounds
         prepareLevelStructure(self.levelName!)
@@ -42,8 +43,9 @@ class Level {
             var colWidth = SKSpriteNode(imageNamed: "brickwhite").size.width
             var totalColWidth = (CGFloat(nrOfCols!) * colWidth)
             var totalPaddingWidth = (CGFloat(nrOfCols! - 1)) * padding!
-            var offsetX = (gameBounds! - (totalColWidth + CGFloat(totalPaddingWidth)))/2
-            var offsetY: CGFloat = 100
+            var offsetX = (gameBounds!.width - (totalColWidth + CGFloat(totalPaddingWidth)))/2
+//            var offsetY: CGFloat = 100
+            var offsetY: CGFloat = gameBounds!.height / 3
             var nextColPos: CGFloat?
             
             for index in 1...nrOfRows! {
@@ -74,8 +76,9 @@ class Level {
             var colWidth = SKSpriteNode(imageNamed: "brickwhite").size.width
             var totalColWidth = (CGFloat(nrOfCols!) * colWidth)
             var totalPaddingWidth = (CGFloat(nrOfCols! - 1)) * padding!
-            var offsetX = (gameBounds! - (totalColWidth + CGFloat(totalPaddingWidth)))/2
-            var offsetY: CGFloat = 100
+            var offsetX = (gameBounds!.width - (totalColWidth + CGFloat(totalPaddingWidth)))/2
+//            var offsetY: CGFloat = 100
+            var offsetY: CGFloat = gameBounds!.height / 3
             var nextColPos: CGFloat?
             
             for index in 1...nrOfRows! {

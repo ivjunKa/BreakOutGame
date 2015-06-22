@@ -51,8 +51,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     override init(size: CGSize){
         super.init(size: size)
-        self.level = Level(levelName: "1-2",gameBounds: self.frame.size.width)
-        game = GameBrain(level: level!, gameBounds: self.frame.size.width)
+        
+        self.level = Level(levelName: "1-1",gameBounds: self.frame.size)
+        game = GameBrain(level: level!, gameBounds: self.frame.size)
         //adding delegate to detect collision
         self.physicsWorld.contactDelegate = self
         //creating and adding backround image
