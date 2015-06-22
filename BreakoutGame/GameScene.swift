@@ -154,9 +154,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     brick.texture = SKTexture(imageNamed: "brickwhite_broken")
                 }
                 brick.physicsBody?.collisionBitMask = 0
-                brick.runAction(SKAction.fadeOutWithDuration(0.2), completion : {
+                brick.runAction(SKAction.fadeOutWithDuration(0.1), completion : {
                 brick.removeFromParent()
                     if let bonus = brick.bonus {
+                        println("trying to create an bonus")
                         bonus.position = CGPointMake(brick.position.x, brick.position.y)
                         bonus.physicsBody = SKPhysicsBody(circleOfRadius: bonus.frame.size.width/2)
                         bonus.physicsBody?.allowsRotation = false
@@ -166,7 +167,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         bonus.physicsBody?.contactTestBitMask = self.balBitmask
 //                        bonus.physicsBody?.collisionBitMask = 0
                         bonus.physicsBody?.dynamic = false
-                        self.addChild(bonus)
+                        println("TRYING TO ADD AN BONUS")
+                        if bonus.parent == nil {
+                            self.addChild(bonus)
+                        }
 //                        bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
                     }
                 })
