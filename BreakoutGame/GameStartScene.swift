@@ -17,7 +17,7 @@ class GameStartScene: SKScene {
         backgroundImage.position = CGPointMake(self.frame.midX, self.frame.midY)
         self.addChild(backgroundImage)
         
-        gameStartButton = SKSpriteNode(imageNamed: "startGameButton")
+        gameStartButton = SKSpriteNode(imageNamed: "start_button_big")
         gameStartButton.position = CGPointMake(self.frame.midX, self.frame.midY)
         self.addChild(gameStartButton)
         
