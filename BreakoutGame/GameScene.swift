@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private final var PADDLE: String = "paddle_size";
     private final var BALLS: String = "starting_balls";
+    private final var LEVEL: String = "playing_level";
     let defaults = NSUserDefaults.standardUserDefaults()
     
     var account: ACAccount?
@@ -44,6 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let paddleBitmask:UInt32 = 4
     let bonusBitmask:UInt32 = 5
     
+    let levels: [String] = ["1-1", "1-2"]
+    
     let fadeoutAction = SKAction.customActionWithDuration(10.0, actionBlock: { (node: SKNode!, elapsedTime: CGFloat) -> Void in
 //        node.texture = SKTexture(imageNamed: "brickwhite_broken")
 //        let spriteNode = node as SKSpriteNode
@@ -51,8 +54,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     })
     override init(size: CGSize){
         super.init(size: size)
+        if defaults.objectForKey(LEVEL) == nil {
+            defaults.setValue(levels[0], forKey: LEVEL)
+        }
         
-        self.level = Level(levelName: "1-2",gameBounds: self.frame.size)
+        let name = defaults.stringForKey(LEVEL)
+        self.level = Level(levelName: levelsContains(name!) ? name! : "1-1",gameBounds: self.frame.size)
         game = GameBrain(level: level!, gameBounds: self.frame.size)
         //adding delegate to detect collision
         self.physicsWorld.contactDelegate = self
@@ -95,6 +102,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addBalls()
     }
     
+    func levelsContains(name: String) -> Bool{
+        for l in levels {
+            if l == name {return true}
+        }
+        return false
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -108,6 +122,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if body?.node?.name == paddleCatName {
             println("paddle clicked")
+        }
+        
+        if body == nil {
+            var angle = CGFloat(arc4random_uniform(360))
+            var speed = CGFloat(arc4random_uniform(5))
+            
+            for nodes in self.children {
+                let node = nodes as SKNode
+                if node.name == balCatName {
+                    node.physicsBody!.applyImpulse(CGVectorMake(cos(angle) * speed, sin(angle) * speed))
+                }
+            }
         }
     }
     
@@ -128,7 +154,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        paddle!.shoot()
+        let alltouch = touches.allObjects as Array<UITouch>
+        paddle!.shoot(alltouch.last!)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -164,21 +191,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 brick.runAction(SKAction.fadeOutWithDuration(0.1), completion : {
                 brick.removeFromParent()
                     if let bonus = brick.bonus {
-                        println("trying to create an bonus")
                         bonus.position = CGPointMake(brick.position.x, brick.position.y)
                         bonus.physicsBody = SKPhysicsBody(circleOfRadius: bonus.frame.size.width/2)
                         bonus.physicsBody?.allowsRotation = false
                         bonus.name = self.bonusCatName
                         bonus.physicsBody?.categoryBitMask = self.bonusBitmask
-//                        bonus.physicsBody?.contactTestBitMask = self.bottomBorderBitmask | self.paddleBitmask
                         bonus.physicsBody?.contactTestBitMask = self.balBitmask
-//                        bonus.physicsBody?.collisionBitMask = 0
                         bonus.physicsBody?.dynamic = false
-                        println("TRYING TO ADD AN BONUS")
                         if bonus.parent == nil {
                             self.addChild(bonus)
                         }
-//                        bonus.physicsBody?.applyImpulse(CGVectorMake(0, -3))
                     }
                 })
                 if checkWin(){

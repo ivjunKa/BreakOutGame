@@ -13,8 +13,12 @@ class SettingsViewController: UIViewController {
     private final var LIVES: String = "startlives";
     private final var PADDLE: String = "paddle_size";
     private final var BALLS: String = "starting_balls";
+    private final var LEVEL: String = "playing_level";
     
     let defaults = NSUserDefaults.standardUserDefaults()
+    
+    
+    @IBOutlet weak var textField: UITextField!
     
     @IBOutlet weak var startingBalls: UISegmentedControl!
     @IBOutlet weak var paddleStepper: UIStepper!
@@ -32,11 +36,20 @@ class SettingsViewController: UIViewController {
         if (defaults.objectForKey(BALLS) != nil) {
             startingBalls.selectedSegmentIndex = defaults.integerForKey(BALLS)-1
         }
+        if (defaults.objectForKey(LEVEL) != nil) {
+            textField.text = defaults.stringForKey(LEVEL)
+        }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
+    
+    
+    @IBAction func sdgdg(sender: UITextField) {
+        defaults.setValue(sender.text, forKey: LEVEL)
+    }
+    
     
     @IBOutlet weak var livesLabel: UILabel!
     @IBAction func numLives(sender: UISlider) {
@@ -54,4 +67,6 @@ class SettingsViewController: UIViewController {
         paddleSizeLabel.text = "paddle size: \(Int(sender.value))"
         defaults.setInteger(Int(sender.value), forKey: PADDLE)
     }
+    
+    
 }

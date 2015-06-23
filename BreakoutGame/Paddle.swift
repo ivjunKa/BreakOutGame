@@ -24,10 +24,12 @@ class Paddle : SKSpriteNode {
         paddleMove()
     }
     
-    func shoot(){
+    func shoot(touch: UITouch){
         if !linkedBalls.isEmpty {
+            let vector = CGVectorMake(2,-2)
+            
             for ball in linkedBalls {
-                ball.physicsBody?.applyImpulse(CGVectorMake(2, -2))
+                ball.physicsBody?.applyImpulse(vector)
             }
             linkedBalls.removeAll(keepCapacity: false)
         }
